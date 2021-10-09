@@ -30,10 +30,14 @@ const Cidade = mongoose.model("cidade")
 router.get('/historia', async (req,res) => {
 
     const historia =  await Cidade.findOne().lean()
+    if(!historia){
+        new Cidade ({titulo: "", mensagem: "", texto: ""}).save()
+    }
 
     res.render('admin/cidade/historia', {
         historia: historia
     })
+
 })
 
 router.get('/cidade-historia', async (req,res) => {
@@ -49,6 +53,10 @@ router.get('/cidade-historia', async (req,res) => {
 router.get('/imagens', async (req,res) => {
 
     const imagens = await Cidade.findOne().lean()
+    if(!imagens){
+        new Cidade ({titulo: "", mensagem: "", texto: ""}).save()
+    }
+
     res.render('admin/cidade/imagens', {
         imagens: imagens
     })
@@ -57,17 +65,24 @@ router.get('/imagens', async (req,res) => {
 router.get('/cidade-imagens', async (req,res) => {
 
     const cidade = await Cidade.findOne().lean()
+ 
     res.render('institucional/cidade/imagens', {
         cidade: cidade
     })
+
 })
 
 router.get('/boasvindas', async (req,res) => {
 
     const boasvindas = await Cidade.findOne().lean()
+    if(!boasvindas){
+        new Cidade ({titulo: "", mensagem: "", texto: ""}).save()
+    }
+
     res.render('admin/locais/boasvindas', {
         boasvindas: boasvindas
     })
+    
 })
 
 

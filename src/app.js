@@ -92,14 +92,20 @@ const Cidade = mongoose.model("cidade")
 //Routes=================================================================================================================
 app.get('/', async (req,res) => {
 
-    const locais = await Locais.find({situacao:'liberado' , statusAtivo: true}).lean()
-    const cidade = await Cidade.findOne().lean()
-
-
+    let locais = await Locais.find({situacao:'liberado' , statusAtivo: true}).lean()
+    let cidade = await Cidade.findOne().lean()
+    if(!cidade){
+        cidade = "null"
+    }
+    if(!locais){
+        locais = "null"
+    }else{
+    
     res.render('institucional/index',{
         locais: locais,
         cidade: cidade
     })
+}
 })
 
 app.get('/detalhes-local/:idLocal', async (req, res) =>{

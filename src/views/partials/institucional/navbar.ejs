@@ -16,7 +16,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-
+            
+                <% if(cidade){ %>
+                    <% } else { %> 
                 <div class="nav-item dropdown">
                     <a class="nav-link nav-link-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Cidade</a>
                
@@ -27,7 +29,7 @@
                    <% if(cidade.imagens.length){ %> <li><a class="dropdown-item" href="/cidade/cidade-imagens">Imagens</a></li><% } else { %> <% } %>                 
                   </ul>               
                 </div>
-           
+                <% } %>
                 <li class="nav-item">
                     <a class="nav-link nav-link-1 active" aria-current="page" href="/">Pontos turísticos</a>
                 </li>
