@@ -93,7 +93,7 @@ const Cidade = mongoose.model("cidade")
 app.get('/', async (req,res) => {
 
     const locais = await Locais.find({situacao:'liberado' , statusAtivo: true}).lean()
-    const cidade = await Cidade.findById({_id: '615ec0d234ab25a2f558e9d4'}).lean()
+    const cidade = await Cidade.findOne().lean()
 
 
     res.render('institucional/index',{
@@ -105,7 +105,7 @@ app.get('/', async (req,res) => {
 app.get('/detalhes-local/:idLocal', async (req, res) =>{
 
     const info = await Locais.findById({_id: req.params.idLocal}).lean()
-    const cidade = await Cidade.findById({_id: '615ec0d234ab25a2f558e9d4'}).lean()
+    const cidade = await Cidade.findOne().lean()
 
 
     res.render('institucional/detalheslocal',{

@@ -1,6 +1,17 @@
 <%- include('../partials/institucional/navbar.ejs') %>
 <%- include('../partials/msg.ejs') %>
 
+    <div class="row mb-4">
+         <h1 class="tm-text-primary">
+            <%= cidade.titulo %>
+         </h1>
+    </div>
+    <div class="row mb-4">
+        <h2 class="col-12 tm-text-primary">
+           <%= cidade.mensagem %>
+        </h2>
+   </div>
+
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpg">
         <form class="d-flex tm-search-form">
             <input class="form-control tm-search-input" type="search" placeholder="Pesquise o nome do Local..." aria-label="Search">
@@ -68,7 +79,7 @@
     </div> <!-- container-fluid, tm-container-content -->
 
     <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
-        <div class="container-fluid tm-container-small">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-12 px-5 mb-5">
                     <h3 class="tm-text-primary mb-4 tm-footer-title">About Catalog-Z</h3>

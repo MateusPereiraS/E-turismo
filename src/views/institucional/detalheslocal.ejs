@@ -7,7 +7,7 @@
 
     <div class="container-fluid tm-container-content tm-mt-60" >
         <div class="row mb-4">
-            <h2 class="col-12 tm-text-primary font-rb"><%= info.nome %></h2>
+            <h2 class="col-md tm-text-primary font-rb"><%= info.nome %></h2>
         </div>
         <section id="multiple-column-form">
             <div class="row match-height">
@@ -55,10 +55,11 @@
                         </div>
                     </div>
                 </div>
+                </section>
             </div>
-        </section>
-      
-<div class="row">
+
+<div class="row px-5">
+    <div class="col-lg-12 col-md col-12 px-5 mb-5">
     <div class="col-md">
         <div id="lightgallery" style="display: inline-block;">
             <% info.conteudoLocal.forEach(function(img) { %>
@@ -67,6 +68,7 @@
                     </a>                                               
                 <% }); %>       
         </div> 
+    </div>
     </div>
 </div>
  
@@ -158,6 +160,17 @@
 </style>
 <script>
      window.onload = function () {
+        jQuery.ajax({
+        type: "POST",
+        url: '/locais/ajax-avaliacoes',
+        data: {idLocal: '<%= info._id %>'},
+        success: function(response) {
+           
+        }
+    });
+
+
+
        var latitudecord = document.querySelector('#latitude').value
        var longitudecord = document.querySelector('#longitude').value
      
@@ -185,16 +198,3 @@
 
     $("#uuid4Visitante-rating").val(localStorage.getItem('uuid4Visitante'))
    </script>
-
-<script>
-
-    jQuery.ajax({
-        type: "POST",
-        url: '/locais/ajax-avaliacoes',
-        data: {idLocal: '<%= info._id %>'},
-        success: function(response) {
-           
-        }
-    });
-
-</script>

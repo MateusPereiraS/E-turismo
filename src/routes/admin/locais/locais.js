@@ -24,6 +24,8 @@ const upload = multer({ storage })
 
 require("../../../models/Locais")
 const Locais = mongoose.model("locais")
+require("../../../models/Cidade")
+const Cidade = mongoose.model("cidade")
 
 router.get('/locais', async (req,res) => {
 
@@ -37,23 +39,14 @@ router.get('/locais', async (req,res) => {
 router.post('/ajax-avaliacoes', async (req, res) => { // consulto os 
     const avaliacoes = await Locais.aggregate([
         { '$match': { '_id': ObjectId(req.body.idLocal) }},
-        {$unwind: '$avaliacao.avaliacoes'}, 
+        {$unwind: '$avaliacao.avaliacoes.uuid'}, 
 
         { 
-            '$group':{
-                '_id': '$avaliacao.avaliacoes.uuid'
-            }
+          
+            
         }
     ]) 
-
-
-    var media = 0  // armazena o valor total de todas as notas
-    var qtdMed = 0 // quantidade de notas que teve
-
-    avaliacoes.forEach((v) => { // loop para pegar os valores de notas e suas quantidades
-        uuid += v['_id'] 
-
-    })
+    console.log(avaliacoes)
 
 })
 
@@ -77,15 +70,9 @@ router.post('/add-local-post', async (req,res) => {
         } else {
 
    new Locais({nome:req.body.nome, endereco: req.body.endereco, numero: req.body.numero, bairro: req.body.bairoo, cep: req.body.cep, cidade: req.body.cidade, estado: req.body.estado,
-        telefone: req.body.telefone, celular: req.body.celular, whatsapp: req.body.whatsapp, email: req.body.email,situacao: 'pendente' }, 
-
-        googleMaps ={
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-            ativo: req.body.ativarlocalizacao
-        },
-
-    
+        telefone: req.body.telefone, celular: req.body.celular, whatsapp: req.body.whatsapp, email: req.body.email,situacao: 'pendente',
+         googleMaps : {'ativo' : req.body.ativarlocalizacao, 'latitude' : req.body.latitude, 'longitude': req.body.longitude} }, 
+        
         ).save().then((local) => {
        
     
@@ -103,6 +90,7 @@ router.post('/add-local-post', async (req,res) => {
             })   
 
         }).catch(err => {
+            console.log(err)
             req.flash('error', 'Erro ao adicionar local')
             res.redirect('back')
         })
@@ -163,6 +151,7 @@ router.post('/add-img/:idLocal/:fileName', upload.single('img_local'), (req, res
 
 })
 
+//Concluir cadastro de local pendente
 router.post('/concluir-cadastro', async (req, res) => {
 
     let local = await Locais.findById({_id: req.body.idLocal}).lean()
@@ -296,8 +285,15 @@ router.post('/update-localizacao-aval', (req, res) => {
 })
 
 
-router.post('/avaliacao', async  (req, res) => {
-    
+router.post('/avaliacao', (req, res) => {
+
+    Locais.updateOne(
+        {_id: req.body.idLocal},    
+        {$push :{'avaliacao.avaliacoes': [{'nota': req.body.nota, 'uuid': req.body.uuid}]}}
+        
+
+        ).then(async()=>{
+
     const avaliacoes = await Locais.aggregate([
         { '$match': { '_id': ObjectId(req.body.idLocal) }},
         {$unwind: '$avaliacao.avaliacoes'}, 
@@ -308,8 +304,8 @@ router.post('/avaliacao', async  (req, res) => {
                 count: { $sum: 1 }
             }
         }
-    ]) 
-
+      
+    ])
 
     var media = 0  // armazena o valor total de todas as notas
     var qtdMed = 0 // quantidade de notas que teve
@@ -318,14 +314,10 @@ router.post('/avaliacao', async  (req, res) => {
         media += v['_id'] * v['count'] // adiciono em media a quantidade de notas vezes o valor dela
         qtdMed += v['count'] // adiciona a quantidade
     })
-    x = media/qtdMed
-    notaMedia = Math.round(x)
 
-    Locais.updateOne(
-        {_id: req.body.idLocal},    
-        {$push :{'avaliacao.avaliacoes': [{'nota': req.body.nota, 'uuid': req.body.uuid}]}}
 
-        ).then(()=>{
+            x = media/qtdMed
+            notaMedia = Math.round(x)
 
             Locais.updateOne(
                 {_id: req.body.idLocal},    
@@ -347,15 +339,25 @@ router.post('/avaliacao', async  (req, res) => {
         })
 
 })
+router.post('/update-boasvindas', (req, res) => {
 
-router.post('/concluir-cadastro', async (req, res) => {
+    Cidade.updateOne(
+        {_id: req.body.idCidade},
+        
+        {$set : {'titulo' : req.body.titulo, 'mensagem' : req.body.mensagem}}).then(()=>{
 
-    let local = await Locais.findById({_id: req.body.idLocal}).lean()
-        res.render('admin/locais/add-img-local',{
-            local: local
+            req.flash("success", "Informações alteradas com sucesso")
+            res.redirect("back")
+
+        }).catch((err) => {
+                console.log(err)
+            req.flash("error", "Houve um erro interno")
+            res.redirect("back")
         })
 
 })
+
+
 
 //Rotas de exclusão ======================================================================================================
 

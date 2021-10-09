@@ -1,29 +1,27 @@
 <%- include('../../partials/institucional/navbar.ejs') %>
 <%- include('../../partials/msg.ejs') %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
-<div class="container-fluid tm-container-content tm-mt-60">
-      
-        <div class="row tm-mb-90 tm-gallery">
-      
-            <div class="row">
-                <div class="col-md">
-                    <div id="lightgallery" style="display: inline-block;">
-                        <% cidade.imagens.forEach(function(img) { %>
-                                    <a href="/cidade-img/<%= img.img %>">
-                                    <img src="/cidade-img/<%= img.img %>" style="height: 260px;width: 400px;border: solid #0dcaf02a;" class="mb-5 mr-3 img-fluid">   
-                                </a>                                               
-                            <% }); %>       
-                    </div> 
-                </div>
-            </div>
-            </div> <!-- row -->
-            </div>
+
+<div class=" container-fluid tm-mt-60" >
+<div class="row tm-mb-90">
+    <div class="col-md tm-mb-90">
+        <div id="lightgallery" style="display: inline-block;">
+            <% cidade.imagens.forEach(function(img) { %>
+                        <a href="/cidade-img/<%= img.img %>">
+                        <img src="/cidade-img/<%= img.img %>" style="height: 260px;width: 400px;border: solid #0dcaf02a;" class="mb-5 mr-3 img-fluid">   
+                    </a>                                               
+                <% }); %>       
+        </div> 
+    </div>
+    </div>
+</div> 
+            
             <script>
                 lightGallery(document.getElementById('lightgallery'), {
                   
                 });
             </script>
-    <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
+    <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer tm-mt-60">
         <div class="container-fluid tm-container-small">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-12 px-5 mb-5">
