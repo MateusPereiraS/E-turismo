@@ -62,7 +62,7 @@ app.use(function(req, res, next){
 
 // Mongoose===================================================================================================================
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost/eturismo", {
+mongoose.connect("mongodb+srv://escola-inteligenteAtlas:escola-inteligenteAtlas@cluster0.47ne2.mongodb.net/eturismo?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
