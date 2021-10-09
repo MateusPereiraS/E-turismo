@@ -98,12 +98,11 @@ app.get('/', async (req,res) => {
         new Cidade ({titulo: "", mensagem: "", texto: ""}).save()
         cidade = "null"
     }
-    
+
     res.render('institucional/index',{
         locais: locais,
         cidade: cidade
     })
-}
 })
 
 app.get('/detalhes-local/:idLocal', async (req, res) =>{
