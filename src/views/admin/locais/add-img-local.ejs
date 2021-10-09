@@ -1,0 +1,94 @@
+
+<%- include('../../partials/admin/menu.ejs') %>
+<script>
+    window.onload = function() {
+        const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');       
+        $('#form-include-img').attr('action', '/locais/upload-img/<%= local._id %>/'+genRanHex(12));
+
+          $('#locais').addClass("active");
+          $('#locais2').addClass("active");
+          $('#locais3').addClass("active");
+      }
+  </script>
+    <div id="app">
+     
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+            <form method="POST" action="" id="form-include-img" enctype="multipart/form-data"> 
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-start">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Cadastro de local</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 d-flex justify-content-center mt-5">
+                </div>
+                <div class="col-12 col-md-6 order-md-1 order-last mt-2">
+                    <h3>Cadastro de local 2/2</h3>
+                </div>
+                <span><%= local.nome %></span>
+                <center>
+                    
+                    <div class="container py-5">
+                        <!-- For demo purpose -->
+                        <header class="text-white text-center">
+                            <h5>Imagem de capa</h5>
+                        </header>                 
+                        <div class="row py-4">
+                            <div class="col-lg-6 mx-auto">
+                                 <!-- Uploaded image area-->
+                                 <div class="image-area"><img id="imageResult" src="/admin/images/samples/no-image.jpg" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                    
+                                <!-- Upload image input-->
+                              
+                                    <input type="text" name="idLocal" value="<%= local._id %>" hidden readonly>
+                                    <div>
+                                    <input id="upload" name="img_local" onchange="readURL(this);" style="display: none" type="file" required>
+
+                                    <div class="input-group-append text-center mt-3 mb-5">                                
+                                        <label for="upload" class="btn-upload"><i class="fas fa-cloud-upload-alt mt-3"></i><small class="text-uppercase font-weight-bold" style="color: white;"> Procurar imagem</small></label>
+                                    </div>
+                                </div>                                                           
+                            </div>
+                        </div>
+                    </div>
+                </center>
+                    <section class="section">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1" class="form-label">Digite as inforações do local</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" name="informacao"
+                                                rows="6"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <center>
+                    <button type="submit"
+                    class="btn btn-primary me-3 mb-1" style="width: 300px;">Cadastrar</button>
+                </center>
+                </form>
+
+            </div>
+      
+        </div>
+    </div>
+
+
+

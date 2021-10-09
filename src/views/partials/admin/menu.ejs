@@ -1,0 +1,71 @@
+<%- include('../../partials/msg.ejs') %>
+<div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <div class="d-flex justify-content-between">
+                <div>
+                   <h5><a href="/acessos/perfil/"><i class="fas fa-user-alt"></i> Meu Perfil</a></h5> 
+                </div>
+                <div class="toggler">
+                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class="sidebar-title">Menu</li>
+
+                <li class="sidebar-item" id="dash">
+                    <a href="/admin/dashboard" class='sidebar-link'>
+                        <i style="color: rgb(12, 44, 28);" class="fas fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item  has-sub" id="cidade1">
+                    <a class='sidebar-link'>
+                        <i style="color: purple;" class="fas fa-city"></i>
+                        <span>Cidade</span>
+                    </a>
+                    <ul class="submenu " id="cidade2">
+                        <li class="submenu-item " id="cidade3">
+                            <a href="/cidade/historia">História</a>
+                        </li>
+                        <li class="submenu-item " id="cidade4">
+                            <a href="/cidade/imagens">Imagens
+                            </a>
+                        </li>        
+                    </ul>
+                </li>
+
+                <li class="sidebar-item  has-sub" id="locais">
+                    <a class='sidebar-link'>
+                        <i style="color: orange;" class="fas fa-map-marker-alt"></i>
+                        <span>Locais</span>
+                    </a>
+                    <ul class="submenu " id="locais2">
+                        <li class="submenu-item " id="locais3">
+                            <a href="/locais/locais">Controle de Locais</a>
+                        </li>
+                        <li class="submenu-item " id="locais4">
+                            <a href="/cidade/boasvindas">Mensagem de boas-vindas
+                            </a>
+                        </li>        
+                    </ul>
+                </li>
+ 
+                <li class="sidebar-item  ">
+                    <a href="/acessos/logout" class='sidebar-link'>
+                        <i style="color: rgb(226, 59, 59);" class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    </div>
+</div>
+
+
+

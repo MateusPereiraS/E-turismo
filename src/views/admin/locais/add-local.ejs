@@ -1,0 +1,258 @@
+<script>
+    window.onload = function () {
+        $('#locais').addClass("active");
+        $('#locais2').addClass("active");
+        $('#locais3').addClass("active");
+    }
+</script>
+
+<%- include('../../partials/admin/menu.ejs') %>
+
+    <div id="app">
+
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-start">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Cadastro de local</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 order-md-1 order-last mt-4">
+                    <h3>Cadastro de local 1/2</h3>
+                </div>
+
+                <!-- // Basic multiple Column Form section start -->
+                <section id="multiple-column-form">
+                    <div class="row match-height">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <form method="POST" action="/locais/add-local-post">
+                                            <div class="row">
+                                                <div class="col-md-8 col-12 mt-5">
+                                                    <div class="form-group">
+                                                        <label for="first-name-column">Nome do local
+                                                            (obrigatório)</label>
+                                                        <input type="text" id="first-name-column" class="form-control"
+                                                            placeholder="" name="nome" required>
+                                                    </div>
+                                                </div>
+                                                <div class="card-header">
+                                                    <h4 class="card-title">Endereço</h4>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="city-column">Endereço</label>
+                                                        <input type="text" id="city-column" class="form-control"
+                                                            placeholder="" name="endereco">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="country-floating">Número</label>
+                                                        <input type="text" id="country-floating" class="form-control"
+                                                            name="numero" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="country-floating">Bairro</label>
+                                                        <input type="text" id="country-floating" class="form-control"
+                                                            name="bairro" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="company-column">CEP</label>
+                                                        <input type="text" id="company-column" class="form-control"
+                                                            name="cep" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-5">
+                                                    <div class="form-group">
+                                                        <label for="email-id-column">Cidade</label>
+                                                        <input type="text" id="email-id-column" class="form-control"
+                                                            name="cidade" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-4">
+                                                    <label for="email-id-column">Estado</label>
+                                                    <select class="form-select" id="estadoSelect" name="estado">
+                                                        <div class="form-group">
+                                                            <option></option>
+                                                            <option value="Acre (AC)">Acre (AC)</option>
+                                                            <option value="Alagoas (AL)">Alagoas (AL)</option>
+                                                            <option value="Amapá (AP)">Amapá (AP)</option>
+                                                            <option value="Amazonas (AM)">Amazonas (AM)</option>
+                                                            <option value="Bahia (BA)">Bahia (BA)</option>
+                                                            <option value="Ceará (CE)">Ceará (CE)</option>
+                                                            <option value="Distrito Federal (DF)">Distrito Federal (DF)</option>
+                                                            <option value="Espírito Santo (ES)">Espírito Santo (ES)</option>
+                                                            <option value="Goiás (GO)">Goiás (GO)</option>
+                                                            <option value="Maranhão (MA)">Maranhão (MA)</option>
+                                                            <option value="Mato Grosso (MT)">Mato Grosso (MT)</option>
+                                                            <option value="Mato Grosso do Sul (MS)">Mato Grosso do Sul (MS)</option>
+                                                            <option value="Minas Gerais (MG)">Minas Gerais (MG)</option>
+                                                            <option value="Pará (PA)">Pará (PA)</option>
+                                                            <option value="Paraíba (PB)">Paraíba (PB)</option>
+                                                            <option value="Paraná (PR)">Paraná (PR)</option>
+                                                            <option value="Pernambuco (PE)">Pernambuco (PE)</option>
+                                                            <option value="Piauí (PI)">Piauí (PI)</option>
+                                                            <option value="Rio de Janeiro (RJ)">Rio de Janeiro (RJ)</option>
+                                                            <option value="Rio Grande do Norte (RN)">Rio Grande do Norte (RN)</option>
+                                                            <option value="Rio Grande do Sul (RS)">Rio Grande do Sul (RS)</option>
+                                                            <option value="Rondônia (RO)">Rondônia (RO)</option>
+                                                            <option value="Roraima (RR)">Roraima (RR)</option>
+                                                            <option value="Santa Catarina (SC)">Santa Catarina (SC)</option>
+                                                            <option value="São Paulo (SP)">São Paulo (SP)</option>
+                                                            <option value="Sergipe (SE)">Sergipe (SE)</option>
+                                                            <option value="Tocantins (TO)">Tocantins (TO)</option>
+                                                    </select>
+                                                </div>
+                                                <div class="card-header">
+                                                    <h4 class="card-title">Contato</h4>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="city-column">Telefone</label>
+                                                        <input type="text" id="city-column" class="form-control"
+                                                            placeholder="" name="telefone">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="country-floating">Celular</label>
+                                                        <input type="text" id="country-floating" class="form-control"
+                                                            name="celular" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="country-floating">Whatsapp</label>
+                                                        <input type="text" id="country-floating" class="form-control"
+                                                            name="whatsapp" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-5">
+                                                    <div class="form-group">
+                                                        <label for="company-column">E-mail</label>
+                                                        <input type="email" id="company-column" class="form-control"
+                                                            name="email" placeholder="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-5 mt-5">
+                                                    <div id="map" class="img-fluid mb-5"></div>
+                                                </div>
+                                                <div class="col-md-6 col-12 mb-5 mt-2">
+                                                    <span style="font-size: 80px;color: #0d6efd;"><i
+                                                            class="fas fa-map-marked-alt"></i><span
+                                                            style="font-size: 40px;"> Localização</span></span>
+                                                    <div class="form-check form-switch mt-4">
+                                                        <input class="form-check-input"
+                                                            style="width: 50px;height: 30px;" type="checkbox"
+                                                            id="ativalocal" name="ativarlocalizacao">
+                                                        <label class="form-check-label mt-2" for="ativalocal"
+                                                            style="font-size: 20px;">&nbsp;Ativar localização</label>
+                                                    </div>
+                                                    <script>
+                                                        $('#ativalocal').click(function () {
+                                                            if ($('#ativalocal').is(':checked')) {
+                                                                
+                                                                $("#divlocal").removeClass('condition-inative');
+                                                                $("#ativalocal").val(true);
+                                                                $("#latitude").attr("required", "true");
+                                                                $("#longitude").attr("required", "true");
+
+                                                            } else {
+                                                                $("#divlocal").addClass('condition-inative');
+                                                                $("#ativalocal").val(false);
+                                                                $("#latitude").removeAttr('required')
+                                                                $("#longitude").removeAttr('required')
+                                                            }
+                                                        });
+                                                    </script>
+                                                    <a href="https://www.youtube.com/watch?v=68FvBeaEM7Q&ab_channel=2GigantesTecnologia" target="_blank">Como posso pegar a latitude e longitude?</a>
+                                                    <div id="divlocal" class="condition-inative">
+                                                        <div class="col-md-3 col-12 mt-5">
+                                                            <div class="form-group">
+                                                                <label for="latitude">Latitude</label>
+                                                                <input type="text" id="latitude" class="form-control"
+                                                                    placeholder="" name="latitude">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 col-12">
+                                                            <div class="form-group">
+                                                                <label for="longitude">Longitude</label>
+                                                                <input type="text" id="longitude" class="form-control"
+                                                                    name="longitude" placeholder="">
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary me-3 mb-5 mt-2"
+                                                            onclick="initMap()">Procurar <i class="fas fa-map-marker-alt"></i></button>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="col-12 d-flex justify-content-center mt-5">
+                                                    <button type="submit" class="btn btn-primary me-3 mb-1"
+                                                        style="width: 300px;background: #0d6efd;">Cadastrar</button>
+                                                    <a href="/locais/locais"> <button type="button"
+                                                            class="btn btn-light-secondary me-3 mb-1"
+                                                            style="width: 300px;">Cancelar</button></a>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- // Basic multiple Column Form section end -->
+            </div>
+        </div>
+    </div>
+    <style>
+        #map {
+            height: 400px;
+            width: 600px;
+        }
+
+        .condition-inative {
+            pointer-events: none;
+        }
+    </style>
+    <script>
+     function initMap() {
+        var latitudecord = document.querySelector('#latitude').value
+        var longitudecord = document.querySelector('#longitude').value
+    
+        $('#map').empty()
+
+$('#map').append(`
+        <div class="mapouter">
+            <div class="gmap_canvas">
+                <iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=${latitudecord},%20${longitudecord}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    <a href="https://fmovies-online.net"></a>
+                    <br>
+                    <style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}</style>
+                    <a href="https://www.embedgooglemap.net">embedgooglemap.net</a>
+                    <style>.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style>
+                    </div></div>
+`)
+                }
+    </script>

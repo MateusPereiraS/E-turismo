@@ -1,0 +1,116 @@
+
+    <div id="app">
+        <%- include('../../partials/admin/menu.ejs') %>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+
+            <div class="page-heading">
+                <div class="page-title">
+                    <div class="row">
+                   
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-start">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Perfil</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Meu Perfil</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <form method="POST" action="/acessos/edit-perfil-cadastro/" >
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <input type="text" name="idUsuario" value="<%= usuarioLogado._id %>" hidden readonly>
+                                            <div class="col-12">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="first-name-icon">Nome</label>
+                                                    <div class="position-relative">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Digite seu nome" value="<%= usuarioLogado.nome %>"
+                                                            id="first-name-icon" name="nome">
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-person"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+
+                                                <div class="form-group has-icon-left">
+                                                    <label for="email-id-icon">E-mail</label>
+                                                    <div class="position-relative">
+                                                        <input type="text" class="form-control" value="<%= usuarioLogado.email %>"
+                                                            placeholder="Email" id="email-id-icon" name="email">
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-envelope"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-end mt-4 mb-3">
+                                                <button type="submit"
+                                                    class="btn btn-primary me-1 mb-1">Alterar</button>
+                                            </form>
+                                            </div>
+                                            <hr>
+                                            <form method="POST" action="/acessos/trocar-senha/">
+                                                <input type="text" name="idUsuario" value="<%= usuarioLogado._id %>" hidden readonly>
+                                            <div class="card-header">
+                                                <h5>Trocar senha</h5>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="password-id-icon">Nova senha</label>
+                                                    <div class="position-relative">
+                                                        <input type="password" class="form-control"
+                                                            placeholder="(mínimo 4 dígitos..)" id="password-id-icon" name="novaSenha">
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-lock"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="password-id-icon">Confirmar senha</label>
+                                                    <div class="position-relative">
+                                                        <input type="password" class="form-control"
+                                                            placeholder="(mínimo 4 dígitos..)" id="password-id-icon" name="confirmaSenha">
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-lock"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="submit"
+                                                    class="btn btn-primary me-1 mb-1">Alterar</button>                                       
+                                           </div>
+                                    </form>
+                                </div>
+                            </div>             
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+                    </section>
+                <!-- // Basic Vertical form layout section end -->
+
+
+            </div>
+    </div>

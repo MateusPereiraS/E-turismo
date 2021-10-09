@@ -1,0 +1,112 @@
+
+<script>
+    window.onload = function() {
+        const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');       
+        $('#form-include-img').attr('action', '/cidade/add-img/'+genRanHex(12));
+
+          $('#cidade1').addClass("active");
+          $('#cidade2').addClass("active");
+          $('#cidade4').addClass("active");
+          
+      }
+  </script>
+
+    <link rel="stylesheet" href="/institucional/css/templatemo-style.css">
+
+
+    <%- include('../../partials/admin/menu.ejs') %>
+<div id="app">
+    
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+        <div class="page-content">
+    <div class="container-fluid tm-container-content tm-mt-60">
+       
+   
+    </div>
+          
+        <div class="row mb-4">
+            <h2 class="col-12 tm-text-primary">
+                Imagens da cidade
+            </h2>
+        </div>
+        <div class="row mb-3 tm-gallery">
+           
+                <% imagens.imagens.forEach(function(img) { %>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="height: 260px;width: 420px;">
+                <form method="POST" action="/cidade/delete-img"  style="display:inline-block;">
+                   <input type="text" name="idCidade" value="<%= imagens._id %>" hidden readonly>
+                    <input type="text" name="idImagem" value="<%= img._id %>" hidden readonly>
+                    <input type="text" name="nameImagem" value="<%= img.img %>" hidden readonly>
+                    <button class="mt-4" style="background: none;border: none;width: 50px;" type="submit"><i style="font-size: 25px;" class="fas fa-times text-danger"></i></button>
+                </form>
+                <figure class="effect-ming tm-video-item">
+                    <img src="/cidade-img/<%= img.img %>" style="height: 260px;width: 420px;"  alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <a href="#">View more</a>
+                    </figcaption>                                     
+                </figure>      
+            </div>
+            <% }); %>
+                 
+            <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 mb-5" style="height: 260px;width: 420px;margin-top: 55px;">
+                <figure class="effect-ming tm-video-item" style="border: dashed;border-color: rgb(10, 66, 10);background: none">
+                    <img src="/admin/images/local/add-image.png" style="height: 260px;width: 420px;" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>Adicionar nova imagem</h2>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#adicionarImagem"></a>
+                    </figcaption>                    
+                </figure>
+            </div>      
+        </div> <!-- row -->
+    </div> <!-- container-fluid, tm-container-content -->
+    </div>
+    </div>
+</div>
+
+    <!-- Modal -->
+<div class="modal fade" id="adicionarImagem" tabindex="-1" aria-labelledby="adicionarImagemLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="adicionarImagemLabel">Adicionar imagem</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row py-4">
+                <div class="col-lg-6 mx-auto">
+                    <center>
+                     <!-- Uploaded image area-->
+                     <div class="image-area"><img id="imageResult"  alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+               
+                    <!-- Upload image input-->
+                    <form method="POST" action="" id="form-include-img"
+                        enctype="multipart/form-data"> 
+                        <input type="text" name="idCidade" value="<%= imagens._id %>" hidden readonly>
+                    <div>
+                        <input id="upload" name="img_cidade" onchange="readURL(this);" style="display: none" type='file' required>
+                        <div class="input-group-append text-center mt-3 mb-5">
+                            <label for="upload" class="btn-upload"><i class="fas fa-cloud-upload-alt mt-3"></i><small class="text-uppercase font-weight-bold" style="color: white;">Procurar imagem</small></label>
+                        </div>
+                    </div> 
+                 
+                        <button type="submit"
+                        class="btn btn-primary me-3 mb-1 mt-3" style="width: 300px;background: #435ebe;">Cadastrar</button>
+                    </center>  
+                </form>                                                        
+                </div>
+            </div>
+        </div>
+      </div>
+      </div>
+   
+  </div>
+  <!--Fim modal-->
+    
+

@@ -1,0 +1,35 @@
+
+
+<% if(messages.success){ %>
+    <script>  
+      
+     Toastify({
+        text: "<%= messages.success %>",
+        duration: 3000,
+        close:true,
+        gravity:"top",
+        position: "right",
+        backgroundColor: "#4fbe87",
+    }).showToast();
+   
+</script>
+<% } %>
+
+<% if(messages.error){ %>
+ 
+    <script>  
+        Toastify({
+        text: "<%= messages.error %>",
+        duration: 3000,
+        close:true,
+        gravity:"top",
+        position: "right",
+        backgroundColor: "#8a0000",
+    }).showToast();
+    </script>
+<% } %>
+
+
+
+
+

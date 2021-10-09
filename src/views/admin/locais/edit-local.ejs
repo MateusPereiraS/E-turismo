@@ -1,0 +1,583 @@
+
+<script>
+    window.onload = function() {
+        const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');       
+        $('#form-include-img').attr('action', '/locais/add-img/<%= locais._id %>/'+genRanHex(12));
+
+          $('#locais').addClass("active");
+          $('#locais2').addClass("active");
+          $('#locais3').addClass("active");
+          $('#estadoSelect option[value="<%= locais.estado %>"]').attr("selected", "selected");
+          
+      }
+  </script>
+
+    <link rel="stylesheet" href="/institucional/css/templatemo-style.css">
+
+
+    <%- include('../../partials/admin/menu.ejs') %>
+<div id="app">
+    
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+        <div class="page-content">
+    <div class="container-fluid tm-container-content tm-mt-60">
+       
+        <div class="row mb-4">
+            <h2 class="col-12 tm-text-primary">Editar publicação <%= locais.avaliacao.notaMedia %></h2>
+        </div>
+        <div class="row tm-mb-90"> 
+            <% if (locais.avaliacao.avaliacaoAtiva === true) { %>
+            <div class="rate text-center condition-inative mr-5">
+                <input type="radio" id="star5" name="rate" value="5" <% if(locais.notaMedia == 5 || !locais.notaMedia) { %> checked <% } else { %> <% } %>/>
+                <label for="star5" title="text">5 stars</label>
+                <input type="radio" id="star4" name="rate" value="4" <% if(locais.notaMedia == 4 ) { %> checked <% } else { %> <% } %>/>
+                <label for="star4" title="text">4 stars</label>
+                <input type="radio" id="star3" name="rate" value="3" <% if(locais.notaMedia == 3 ) { %> checked <% } else { %> <% } %>/>
+                <label for="star3" title="text">3 stars</label>
+                <input type="radio" id="star2" name="rate" value="2" <% if(locais.notaMedia  == 2 ) { %> checked <% } else { %> <% } %>/>
+                <label for="star2" title="text">2 stars</label>
+                <input type="radio" id="star1" name="rate" value="1" <% if(locais.notaMedia == 1 ) { %> checked <% } else { %> <% } %>/>
+                <label for="star1" title="text">1 star</label>
+              </div>
+              <% } else { %> <% } %>
+        <div class="col-md-6 col-lg-7 col-sm-10 mb-5 img-fluid">
+        <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false" data-bs-interval="false">
+            <div class="carousel-inner">
+                <% locais.conteudoLocal.forEach(function(img) { %>
+              <div class="carousel-item<% if(img.imgcapa === true){ %> active <% } else { %> <% } %>">
+                <img src="/locais-img/<%= locais._id %>/<%= img.img %>" alt="Image" class="d-block w-100" style="height: 500px;">
+                <% if(img.imgcapa === true){ %>  
+                   <center>
+                        <button class="mt-4" style="background: none;border: none;width: 50px;" type="button"><i style="font-size: 22px;" class="fas fa-star text-warning"></i></button>
+                        <button class="mt-4" style="background: none;border: none;width: 50px;" type="button"><i style="font-size: 25px;" class="fas fa-times tm-text-gray"></i></button>
+                    </center>
+                    <% } else { %> 
+                    <center>
+                        <form method="POST" action="/locais/update-capa" style="display:inline-block ;">
+                            <input type="text" name="idLocal" value="<%= locais._id %>" hidden readonly>
+                            <input type="text" name="idImagem" value="<%= img._id %>" hidden readonly>
+                        <button class="mt-4" style="background: none;border: none;width: 60px;" type="submit"><i style="font-size: 22px;" class="fas fa-star tm-text-gray"></i></button>
+                    </form>
+                    <form method="POST" action="/locais/delete-img"  style="display:inline-block ;">
+                        <input type="text" name="idLocal" value="<%= locais._id %>" hidden readonly>
+                        <input type="text" name="idImagem" value="<%= img._id %>" hidden readonly>
+                        <input type="text" name="nameImagem" value="<%= img.img %>" hidden readonly>
+                        <button class="mt-4" style="background: none;border: none;width: 50px;" type="submit"><i style="font-size: 25px;" class="fas fa-times text-danger"></i></button>
+                    </form>
+                    </center>
+                <% } %>
+              </div>
+                
+              <% }); %>
+              
+            </div>
+           
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching"  data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching"  data-bs-slide="next">
+              <span class="carousel-control-next-icon"  aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-md col-lg-4 col-md-6 col-sm-12">
+                
+            <div class="tm-video-details">
+                <h5>Configurações:</h5>
+            
+                <button type="button"
+                        class="btn btn-light mt-3" style="width: 150px;font-size:18px;background: #435ebe;text-align: left;color: white;"  data-bs-toggle="modal" data-bs-target="#informacoes">
+                        <i class="fas fa-pen"></i> Informações</button>
+                        <button type="button"
+                        class="btn btn-light mt-3" style="width: 220px;font-size:18px;background: #435ebe;text-align: left;color: white;"  data-bs-toggle="modal" data-bs-target="#contato">
+                        <i class="fas fa-map-marker-alt"></i> Contato e Endereço</button>
+                        <button type="button"
+                        class="btn btn-light mt-3" style="width: 260px;font-size:18px;background: #435ebe;text-align: left;color: white;"  data-bs-toggle="modal" data-bs-target="#localizacao">
+                        <i class="fas fa-compass" ></i> localização e avaliações</button>
+                        <form action="/locais/update-status" method="POST" id="update-status-local">
+                            <input type="text" name="idLocal" value="<%= locais._id %>" hidden readonly>
+                            <input type="text" id="statusLocal" name="statusLocal" value="<%= locais._id %>" hidden readonly>
+                        <div class="form-check form-switch mt-10">
+                            <input class="form-check-input"
+                                style="width: 45px;height: 22px;" type="checkbox"
+                                id="status" value="" onchange="verificaStatus()" <% if (locais.statusAtivo === true) { %> checked <% } else { %> <% } %> >
+                            <label class="form-check-label mb-5" for="status"
+                                style="font-size: 20px;">&nbsp;Ativo</label>
+                        </div>
+                    </form>
+                        <script>
+                          function verificaStatus() {
+                                if ($('#status').is(':checked')) {                                  
+                                    $("#statusLocal").val(true);
+                                   
+                                } else {
+                                    $("#statusLocal").val(false);
+                   
+                                }
+                                $('#update-status-local').submit()
+                            }
+                        </script>
+                        <div> 
+                            <button style="background: none;border: none;color: red;"  data-bs-toggle="modal" data-bs-target="#danger" type="button" >X Excluir Local</button>
+                        
+                        </div>        
+                        </div>
+                           
+            </div>
+        </div>
+   
+    </div>
+          
+        <div class="row mb-4">
+            <h2 class="col-12 tm-text-primary">
+                Fotos
+            </h2>
+        </div>
+        <div class="row mb-3 tm-gallery">
+            <% locais.conteudoLocal.forEach(function(img) { %>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5" style="height: 260px;width: 420px;">
+                <figure class="effect-ming tm-video-item">
+                    <img src="/locais-img/<%= locais._id %>/<%= img.img %>" style="height: 260px;width: 420px;"  alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <a href="#">View more</a>
+                    </figcaption>                                     
+                </figure>      
+            </div>
+            <% }); %> 
+            <div class="col-xl-3 col-lg-4 col-md-5 col-sm-6 col-12 mb-5" style="height: 260px;width: 420px;">
+                <figure class="effect-ming tm-video-item" style="border: dashed;border-color: rgb(10, 66, 10);background: none">
+                    <img src="/admin/images/local/add-image.png" style="height: 260px;width: 420px;" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>Adicionar nova imagem</h2>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#adicionarImagem"></a>
+                    </figcaption>                    
+                </figure>
+            </div>      
+        </div> <!-- row -->
+    </div> <!-- container-fluid, tm-container-content -->
+    </div>
+    </div>
+    </div>
+
+
+
+      <!-- Modal de exclusão --> 
+      <div class="modal fade text-left" id="danger" tabindex="-1"
+      role="dialog" aria-labelledby="myModalLabel120"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+          role="document">
+          <div class="modal-content">
+              <div class="modal-header bg-danger">
+                  <h5 class="modal-title white" id="myModalLabel120">
+                      Exclusão de local
+                  </h5>
+                  <button type="button" class="close"
+                      data-bs-dismiss="modal" aria-label="Close">
+                      <i data-feather="x"></i>
+                  </button>
+              </div>
+              <div class="modal-body" style="color: black;">
+                  
+                Tem certeza que deseja excluir?
+                <br><br>
+                Todas as informações e fotos serão excluídas permanentemente e não será possível recuperar.
+              </div>
+              <div class="modal-footer">
+                <form action="/locais/delete-local" method="POST">
+                    <input type="text" name="idLocal" value="<%= locais._id %>" hidden readonly>
+                  <button type="submit" class="btn btn-danger ml-1">
+                      <i class="bx bx-check d-block d-sm-none"></i>
+                      <span class="d-none d-sm-block">Ok, estou ciente.</span>
+                  </button>
+                  </form>
+                  <button type="button"
+                      class="btn btn-light-secondary"
+                      data-bs-dismiss="modal">
+                      <i class="bx bx-x d-block d-sm-none"></i>
+                      <span class="d-none d-sm-block">Cancelar</span>
+                  </button>     
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+    <!-- Modal -->
+<div class="modal fade" id="adicionarImagem" tabindex="-1" aria-labelledby="adicionarImagemLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="adicionarImagemLabel">Adicionar imagem</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row py-4">
+                <div class="col-lg-6 mx-auto">
+                    <center>
+                     <!-- Uploaded image area-->
+                     <div class="image-area"><img id="imageResult"  alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+               
+                    <!-- Upload image input-->
+                    <form method="POST" action="" id="form-include-img"
+                        enctype="multipart/form-data"> 
+                        <input type="text" name="idLocal" value="<%= locais._id %>" hidden readonly>
+                    <div>
+                        <input id="upload" name="img_local" onchange="readURL(this);" style="display: none" type='file' required>
+                        <div class="input-group-append text-center mt-3 mb-5">
+                            <label for="upload" class="btn-upload"><i class="fas fa-cloud-upload-alt mt-3"></i><small class="text-uppercase font-weight-bold" style="color: white;">Procurar imagem</small></label>
+                        </div>
+                    </div> 
+                 
+                        <button type="submit"
+                        class="btn btn-primary me-3 mb-1 mt-3" style="width: 300px;background: #435ebe;">Cadastrar</button>
+                    </center>  
+                </form>                                                        
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fim modal-->
+    
+
+      <!-- Modal -->
+<div class="modal fade" id="informacoes" tabindex="-1" aria-labelledby="informacoesLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="informacoesLabel">Editar informações</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row py-4">
+                <div class="col-lg-12 mx-auto">
+                    <form action="/locais/update-informacao" method="POST">
+                        <input type="text" name="idLocal" value="<%= locais._id %>" hidden readonly>
+                        <div class="col-md-6 col-12">
+                            <div class="form-group">
+                                <label for="city-column">Nome do local</label>
+                                <input type="text" id="city-column" class="form-control"
+                                    placeholder="" value="<%= locais.nome %>" name="nome" required>
+                            </div>
+                        </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1" class="form-label">Informações sobre o local</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="informacao"
+                            rows="20"><%= locais.informacao %></textarea>
+                    </div>
+                    <center>
+                        <button type="submit"
+                        class="btn btn-primary me-3 mb-1 mt-3" style="width: 300px;background: #435ebe;">Alterar</button>
+                    </center>  
+                </form>                                                        
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fim modal-->
+
+
+  
+       <!-- Modal -->
+<div class="modal fade" id="contato" tabindex="-1" aria-labelledby="contatolLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contatoLabel">Editar contatos e endereço</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row py-4">
+                <div class="col-lg-10 mx-auto">
+                    <section id="multiple-column-form">
+                        <div class="row match-height">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form method="POST" action="/locais/update-endereco">
+                                                <input type="text" name="idLocal" value="<%= locais._id %>" hidden readonly>
+                                                <div class="row">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title">Endereço</h4>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="city-column">Endereço</label>
+                                                            <input type="text" id="city-column" class="form-control"
+                                                                placeholder="" value="<%= locais.endereco %>" name="endereco">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="country-floating">Número</label>
+                                                            <input type="text" id="country-floating" class="form-control"
+                                                                name="numero" placeholder="" value="<%= locais.numero %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="country-floating">Bairro</label>
+                                                            <input type="text" id="country-floating" class="form-control"
+                                                                name="bairro" placeholder="" value="<%= locais.bairro %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="company-column">CEP</label>
+                                                            <input type="text" id="company-column" class="form-control"
+                                                                name="cep" placeholder="" value="<%= locais.cep %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12 mb-5">
+                                                        <div class="form-group">
+                                                            <label for="email-id-column">Cidade</label>
+                                                            <input type="text" id="email-id-column" class="form-control"
+                                                                name="cidade" placeholder="" value="<%= locais.cidade %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12 mb-4">
+                                                        <label for="email-id-column">Estado</label>
+                                                    
+                                                        <select class="form-select" id="estadoSelect" name="estado">
+                                                            <div class="form-group">
+                                                                <option></option>
+                                                                <option value="Acre (AC)">Acre (AC)</option>
+                                                                <option value="Alagoas (AL)">Alagoas (AL)</option>
+                                                                <option value="Amapá (AP)">Amapá (AP)</option>
+                                                                <option value="Amazonas (AM)">Amazonas (AM)</option>
+                                                                <option value="Bahia (BA)">Bahia (BA)</option>
+                                                                <option value="Ceará (CE)">Ceará (CE)</option>
+                                                                <option value="Distrito Federal (DF)">Distrito Federal (DF)</option>
+                                                                <option value="Espírito Santo (ES)">Espírito Santo (ES)</option>
+                                                                <option value="Goiás (GO)">Goiás (GO)</option>
+                                                                <option value="Maranhão (MA)">Maranhão (MA)</option>
+                                                                <option value="Mato Grosso (MT)">Mato Grosso (MT)</option>
+                                                                <option value="Mato Grosso do Sul (MS)">Mato Grosso do Sul (MS)</option>
+                                                                <option value="Minas Gerais (MG)">Minas Gerais (MG)</option>
+                                                                <option value="Pará (PA)">Pará (PA)</option>
+                                                                <option value="Paraíba (PB)">Paraíba (PB)</option>
+                                                                <option value="Paraná (PR)">Paraná (PR)</option>
+                                                                <option value="Pernambuco (PE)">Pernambuco (PE)</option>
+                                                                <option value="Piauí (PI)">Piauí (PI)</option>
+                                                                <option value="Rio de Janeiro (RJ)">Rio de Janeiro (RJ)</option>
+                                                                <option value="Rio Grande do Norte (RN)">Rio Grande do Norte (RN)</option>
+                                                                <option value="Rio Grande do Sul (RS)">Rio Grande do Sul (RS)</option>
+                                                                <option value="Rondônia (RO)">Rondônia (RO)</option>
+                                                                <option value="Roraima (RR)">Roraima (RR)</option>
+                                                                <option value="Santa Catarina (SC)">Santa Catarina (SC)</option>
+                                                                <option value="São Paulo (SP)">São Paulo (SP)</option>
+                                                                <option value="Sergipe (SE)">Sergipe (SE)</option>
+                                                                <option value="Tocantins (TO)">Tocantins (TO)</option>
+                                                        </select>
+
+                                                    </div>
+                                                    <div class="card-header">
+                                                        <h4 class="card-title">Contato</h4>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="city-column">Telefone</label>
+                                                            <input type="text" id="city-column" class="form-control"
+                                                                placeholder="" name="telefone" value="<%= locais.telefone %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="country-floating">Celular</label>
+                                                            <input type="text" id="country-floating" class="form-control"
+                                                                name="celular" placeholder="" value="<%= locais.celular %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="country-floating">Whatsapp</label>
+                                                            <input type="text" id="country-floating" class="form-control"
+                                                                name="whatsapp" placeholder="" value="<%= locais.whatsapp %>">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12 mb-5">
+                                                        <div class="form-group">
+                                                            <label for="company-column">E-mail</label>
+                                                            <input type="email" id="company-column" class="form-control"
+                                                                name="email" placeholder="" value="<%= locais.email %>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <center>
+                                                    <button type="submit"
+                                                    class="btn btn-primary me-3 mb-1 mt-3" style="width: 300px;background: #435ebe;">Alterar</button>
+                                                </center>  
+                                            </form>     
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>                                                  
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Fim modal-->
+    
+
+      <!-- Modal -->
+<div class="modal fade" id="localizacao" tabindex="-1" aria-labelledby="localizacaoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="localizacaoLabel">Editar localização e avaliação</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="/locais/update-localizacao-aval">
+                <input type="text" name="idLocal" value="<%= locais._id %>" hidden readonly>
+            <div class="row col-12">              
+                    <div class="ml-3 col-md-4">
+                        <div class="form-group">
+                            <div id="map" class="img-fluid mb-5 "></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12 mb-1">
+                        <span style="font-size: 40px;color: #0d6efd;"><i    
+                                class="fas fa-map-marked-alt"></i><span
+                                style="font-size: 20px;"> Localização</span></span>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input"
+                                style="width: 50px;height: 25px;" type="checkbox"
+                                id="ativalocal" name="ativarlocalizacao" value="<%= locais.googleMaps.ativo %>" <% if (locais.googleMaps.ativo === true) { %>  checked <% } else { %> <% } %> >
+                            <label class="form-check-label mb-2" for="ativalocal"
+                                style="font-size: 20px;">&nbsp;Ativar localização</label>
+                        </div>
+                        <script>
+                            $('#ativalocal').click(function () {
+                                if ($('#ativalocal').is(':checked')) {
+                                    
+                                    $("#ativalocal").val(true);
+                                    $("#latitude").attr("required", "true");
+                                    $("#longitude").attr("required", "true");
+
+                                } else {
+
+                                    $("#ativalocal").val(false);
+                                    $("#latitude").removeAttr('required')
+                                    $("#longitude").removeAttr('required')
+                                }
+                            });
+                        </script>
+                         <a href="https://www.youtube.com/watch?v=68FvBeaEM7Q&ab_channel=2GigantesTecnologia" target="_blank">Como posso pegar a latitude e longitude?</a>
+                        <div id="divlocal">
+                            <div class="col-md-9 col-12 mt-2">
+                                <div class="form-group">
+                                    <label for="latitude">Latitude</label>
+                                    <input type="text" id="latitude" class="form-control"
+                                        placeholder="" value="<%= locais.googleMaps.latitude %>" name="latitude">
+                                </div>
+                            </div>
+                            <div class="col-md-9 col-12">
+                                <div class="form-group">
+                                    <label for="longitude">Longitude</label>
+                                    <input type="text" id="longitude" class="form-control"
+                                        name="longitude" value="<%= locais.googleMaps.longitude %>" placeholder="">
+                                </div>
+                            </div>
+                            <button type="button" style="background: #435ebe;height: 50px;" class="btn btn-primary me-3 mb-5"
+                                onclick="initMap()">Procurar <i class="fas fa-map-marker-alt"></i></button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mt-5">
+                    <div class="form-check form-switch mt-2">
+                        <input class="form-check-input"
+                            style="width: 50px;height: 25px;" type="checkbox"
+                            id="ativalAval" name="ativaravaliacao" value="<%= locais.avaliacaoAtiva %>" <% if (locais.avaliacao.avaliacaoAtiva === true) { %> checked <% } else { %> <% } %> >
+                        <label class="form-check-label" for="ativalAval"
+                            style="font-size: 20px;">&nbsp;Ativar avaliações</label>
+                            <div class="rate text-center condition-inative">
+                                <input type="radio" id="star5" name="rate" value="5" checked/>
+                                <label for="star5" title="text">5 stars</label>
+                                <input type="radio" id="star4" name="rate" value="4" />
+                                <label for="star4" title="text">4 stars</label>
+                                <input type="radio" id="star3" name="rate" value="3" />
+                                <label for="star3" title="text">3 stars</label>
+                                <input type="radio" id="star2" name="rate" value="2" />
+                                <label for="star2" title="text">2 stars</label>
+                                <input type="radio" id="star1" name="rate" value="1" />
+                                <label for="star1" title="text">1 star</label>
+                              </div>
+                    </div>
+                    </div>
+                              
+                    <script>
+                        $('#ativalAval').click(function () {
+                            if ($('#ativalAval').is(':checked')) {
+
+                                $("#ativalAval").val(true);
+
+                            }else{
+                                $("#ativalAval").val(false);
+                            }
+
+                        })
+                    </script>                                                                  
+            </div>
+        </div>
+        <center>
+            <br><br>
+            <button type="submit"
+            class="btn btn-primary me-3 mb-5" style="width: 300px;background: #435ebe;">Alterar</button>
+        </center>  
+    </form> 
+      </div>
+    </div>
+  </div>
+
+  
+  <!--Fim modal-->
+
+  <script src="/admin/vendors/rater-js/rater1-js.js"></script>
+  <script src="/admin/vendors/rater-js/rater2-js.js"></script>
+  <style>
+    #map {
+        height: 200px;
+        width: 500px;
+    }
+
+    .condition-inative {
+        pointer-events: none;
+    }
+</style>
+<script>
+
+
+    
+ function initMap() {
+    var latitudecord = document.querySelector('#latitude').value
+    var longitudecord = document.querySelector('#longitude').value
+
+    $('#map').empty()
+
+$('#map').append(`
+<iframe width="auto" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=${latitudecord},%20${longitudecord}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>       
+              
+`)
+            }
+    
+</script>
+

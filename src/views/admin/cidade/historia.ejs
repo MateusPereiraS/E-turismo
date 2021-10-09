@@ -1,0 +1,58 @@
+
+<script>
+    window.onload = function() {
+        const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');       
+        $('#form-include-img').attr('action', '/cidade/add-img/'+genRanHex(12));
+
+          $('#cidade1').addClass("active");
+          $('#cidade2').addClass("active");
+          $('#cidade3').addClass("active");
+          
+      }
+  </script>
+
+    <link rel="stylesheet" href="/institucional/css/templatemo-style.css">
+
+
+    <%- include('../../partials/admin/menu.ejs') %>
+<div id="app">
+    
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
+
+        <div class="page-heading">
+        <div class="page-content">
+    <div class="container-fluid tm-container-content tm-mt-60">
+       
+   
+    </div>
+          
+        <div class="row mb-4">
+            <h2 class="col-12 tm-text-primary">
+                História
+            </h2>
+        </div>
+        <div class="col-lg-12 mx-auto">
+            <form action="/cidade/update-historia" method="POST">
+                <input type="text" name="idCidade" value="<%= historia._id %>" hidden readonly>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1" class="form-label">Informações sobre a cidade</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="texto"
+                    rows="20"><%= historia.texto %></textarea>
+            </div>
+            <center>
+                <button type="submit"
+                class="btn btn-primary me-3 mb-1 mt-3" style="width: 300px;background: #435ebe;">Salvar</button>
+            </center>  
+        </form>                                                        
+        </div>
+    </div> <!-- container-fluid, tm-container-content -->
+    </div>
+    </div>
+</div>
+
+

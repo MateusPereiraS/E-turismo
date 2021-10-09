@@ -1,0 +1,38 @@
+
+    <link rel="stylesheet" href="/institucional/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/institucional/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/institucional/css/templatemo-style.css">
+    
+
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-film mr-2"></i>
+                E-Turismo
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <% if(cidade.imagens.length || cidade.texto){ %>
+                <div class="nav-item dropdown">
+                    <a class="nav-link nav-link-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Cidade</a>
+               
+
+                <ul class="dropdown-menu" style="background: none;" aria-labelledby="dropdownMenuButton1">
+                   <% if(cidade.texto) { %> <li><a class="dropdown-item" href="/cidade/cidade-historia">História</a></li><% } else { %> <% } %>
+                  
+                   <% if(cidade.imagens.length){ %> <li><a class="dropdown-item" href="/cidade/cidade-imagens">Imagens</a></li><% } else { %> <% } %>                 
+                  </ul>               
+                </div>
+                <% } else { %> <% } %>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-1 active" aria-current="page" href="/">Pontos turísticos</a>
+                </li>
+               
+            </ul>
+            </div>
+        </div>
+    </nav>
