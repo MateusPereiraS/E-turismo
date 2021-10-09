@@ -131,7 +131,7 @@ app.use('/admin', adminDashboard)
 app.use('/locais', adminLocais)
 app.use('/cidade', adminCidade)
 
-const PORT = process.env.APP_PORT
-app.listen(PORT, () => {
+
+app.listen(process.env.PORT || 3000, () => {
     console.log("Servidor rodando! ")
 })
