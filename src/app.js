@@ -95,11 +95,9 @@ app.get('/', async (req,res) => {
     let locais = await Locais.find({situacao:'liberado' , statusAtivo: true}).lean()
     let cidade = await Cidade.findOne().lean()
     if(!cidade){
+        new Cidade ({titulo: "", mensagem: "", texto: ""}).save()
         cidade = "null"
     }
-    if(!locais){
-        locais = "null"
-    }else{
     
     res.render('institucional/index',{
         locais: locais,
@@ -112,7 +110,6 @@ app.get('/detalhes-local/:idLocal', async (req, res) =>{
 
     const info = await Locais.findById({_id: req.params.idLocal}).lean()
     const cidade = await Cidade.findOne().lean()
-
 
     res.render('institucional/detalheslocal',{
         info: info,
