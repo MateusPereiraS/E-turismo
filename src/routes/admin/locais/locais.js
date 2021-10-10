@@ -118,7 +118,7 @@ router.post('/upload-img/:idLocal/:fileName', upload.single('img_local'), (req, 
         ).then(()=>{
 
             req.flash("success", "Local adicionado com sucesso")
-            res.redirect("/locais/locais")
+            res.redirect("/locais/edit-local/"+req.params.idLocal)
 
         }).catch((err) => {
             req.flash("error", "Houve um erro interno")
