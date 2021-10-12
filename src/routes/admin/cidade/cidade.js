@@ -62,13 +62,6 @@ router.get('/cidade-imagens', async (req,res) => {
     })
 })
 
-router.get('/boasvindas', async (req,res) => {
-
-    const boasvindas = await Cidade.findOne().lean()
-    res.render('admin/locais/boasvindas', {
-        boasvindas: boasvindas
-    })
-})
 
 
 //Rotas de cadastro =======================================================================================================

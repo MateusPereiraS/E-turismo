@@ -55,21 +55,19 @@
                         </div>
                     </div>
                 </div>      
-            <div class="row">
-                <% info.conteudoLocal.forEach(function(img) { %>
-                <div class="col-md mb-5">
-                    <div id="lightgallery" style="display: inline-block;" class="img-fluid">
+  
+                <div class="container-fluid">      
+                    <div id="lightgallery" style="display: inline-block;">
+                        <% info.conteudoLocal.forEach(function(img) { %>
                         <a href="/locais-img/<%= info._id %>/<%= img.img %>">
-                        <img src="/locais-img/<%= info._id %>/<%= img.img %>" style="height: 260px;width: 400px;border: solid #0dcaf02a;" class="mr-3 img-fluid">   
-                    </a>                                               
-            </div>
-        </div>
-        <% }); %>  
+                        <img src="/locais-img/<%= info._id %>/<%= img.img %>" style="height: 260px;width: 400px;border: solid #0dcaf02a;" class="mr-2 mb-3 img-fluid">   
+                    </a>  
+                    <% }); %>                                               
+            </div>     
     </div>
 </section>
 </div>  
-    <div> 
-        <div>
+        <div id="ratingStatus">
             <form action="/locais/avaliacao" method="POST">
     <% if (info.avaliacao.avaliacaoAtiva === true) { %>
         <h5 style="text-align:center" class="mt-5">Dê uma nota para o local:</h5>
@@ -86,21 +84,22 @@
             <label for="star1" title="text">1 star</label>
           </div>
           <input type="text" name="idLocal" value="<%= info._id %>" hidden readonly>
+          <input type="text" name="nomeLocal" value="<%= info.nome %>" hidden readonly>
           <input type="text" id="nota" name="nota" hidden readonly>
           <input type="text" id="uuid4Visitante-rating" name="uuid" hidden readonly>
-          <script>
-              function ratevalue(rating){
-                $('#nota').val(rating)
-              }
-          </script>
+        
           <center>
             <button class="btn btn-primary mb-5" style="height: 50px;">Avaliar</button>
           </center>
           <% } else { %> <% } %>
     </form>
         </div>
+        <script>
+            function ratevalue(rating){
+              $('#nota').val(rating)
+            }
+        </script>
 
-        </div>
 
 
  <script>
@@ -138,9 +137,9 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">
-                Copyright 2020 Catalog-Z Company. All rights reserved.
+                Copyright 2020 Catalog-Z Company. All rights reserved. 
             </div>
-            <div class="col-lg-4 col-md-5 col-12 px-5 text-right">
+            <div class="col-lg-4 col-md-5 col-12 px-5 text-right" id="aaa">
                 Designed by <a href="https://templatemo.com" class="tm-text-gray" rel="sponsored" target="_parent">TemplateMo</a>
             </div>
         </div>
@@ -155,16 +154,22 @@
 </style>
 <script>
      window.onload = function () {
-        jQuery.ajax({
-        type: "POST",
-        url: '/locais/ajax-avaliacoes',
-        data: {idLocal: '<%= info._id %>'},
-        success: function(response) {
-           
-        }
-    });
+         
+    let avaliacao = <%- avaliacao %>
 
+let uuidDisponivel = avaliacao.avaliacoes.map(v => v.uuid) 
 
+let uuid = $("#uuid4Visitante-rating").val()
+    let validate = uuidDisponivel.includes(uuid)
+
+    
+    if(validate){
+        $('#ratingStatus').empty()
+        $('#ratingStatus').append(`
+        <h4 class="text-center font-rb mt-5">Obrigado por sua avaliação! </h4>
+        <h1 class="text-center text-warning mb-5"><i class="fas fa-laugh-beam"></i></h1>
+        `)
+    }
 
        var latitudecord = document.querySelector('#latitude').value
        var longitudecord = document.querySelector('#longitude').value
@@ -192,4 +197,7 @@
     }
 
     $("#uuid4Visitante-rating").val(localStorage.getItem('uuid4Visitante'))
+
+
+
    </script>

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const Cidade = new Schema({
 //Mensagem de boas vindas
-tituto: String,
+titulo: String,
 mensagem: String,
    
 //História da cidade

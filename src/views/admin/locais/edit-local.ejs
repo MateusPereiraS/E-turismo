@@ -462,26 +462,11 @@
                         <div class="form-check form-switch">
                             <input class="form-check-input"
                                 style="width: 50px;height: 25px;" type="checkbox"
-                                id="ativalocal" name="ativarlocalizacao" value="<%= locais.googleMaps.ativo %>" <% if (locais.googleMaps.ativo === true) { %>  checked <% } else { %> <% } %> >
+                                id="ativalocal" onchange="checkLocal()" name="ativarlocalizacao" value="<%= locais.googleMaps.ativo %>" <% if (locais.googleMaps.ativo === true) { %>  checked <% } else { %> <% } %> >
                             <label class="form-check-label mb-2" for="ativalocal"
                                 style="font-size: 20px;">&nbsp;Ativar localização</label>
                         </div>
-                        <script>
-                            $('#ativalocal').click(function () {
-                                if ($('#ativalocal').is(':checked')) {
-                                    
-                                    $("#ativalocal").val(true);
-                                    $("#latitude").attr("required", "true");
-                                    $("#longitude").attr("required", "true");
 
-                                } else {
-
-                                    $("#ativalocal").val(false);
-                                    $("#latitude").removeAttr('required')
-                                    $("#longitude").removeAttr('required')
-                                }
-                            });
-                        </script>
                          <a href="https://www.youtube.com/watch?v=68FvBeaEM7Q&ab_channel=2GigantesTecnologia" target="_blank">Como posso pegar a latitude e longitude?</a>
                         <div id="divlocal">
                             <div class="col-md-9 col-12 mt-2">
@@ -502,11 +487,28 @@
                                 onclick="initMap()">Procurar <i class="fas fa-map-marker-alt"></i></button>
                         </div>
                     </div>
+                    <script>
+                        function checkLocal(){
+                                if ($('#ativalocal').is(':checked')) {
+                                    
+                                    $("#ativalocal").val(true);
+                                    $("#latitude").attr("required", "true");
+                                    $("#longitude").attr("required", "true");
+
+                                } else {
+
+                                    $("#ativalocal").val(false);
+                                    $("#latitude").removeAttr('required')
+                                    $("#longitude").removeAttr('required')
+                                }
+                            }
+                    </script>
                     <div class="col-md-3 mt-5">
                     <div class="form-check form-switch mt-2">
                         <input class="form-check-input"
                             style="width: 50px;height: 25px;" type="checkbox"
-                            id="ativalAval" name="ativaravaliacao" value="<%= locais.avaliacaoAtiva %>" <% if (locais.avaliacao.avaliacaoAtiva === true) { %> checked <% } else { %> <% } %> >
+                            id="ativalAval" name="ativaravaliacao" value="<%= locais.avaliacao.avaliacaoAtiva %>"
+                              onchange="checkAvaliacao()" value="<%= locais.avaliacaoAtiva %>" <% if (locais.avaliacao.avaliacaoAtiva === true) { %> checked <% } else { %> <% } %> >
                         <label class="form-check-label" for="ativalAval"
                             style="font-size: 20px;">&nbsp;Ativar avaliações</label>
                             <div class="rate text-center condition-inative">
@@ -524,8 +526,8 @@
                     </div>
                     </div>
                               
-                    <script>
-                        $('#ativalAval').click(function () {
+                    <script>  
+                    function checkAvaliacao(){
                             if ($('#ativalAval').is(':checked')) {
 
                                 $("#ativalAval").val(true);
@@ -534,7 +536,7 @@
                                 $("#ativalAval").val(false);
                             }
 
-                        })
+                        }
                     </script>                                                                  
             </div>
         </div>
@@ -550,9 +552,6 @@
 
   
   <!--Fim modal-->
-
-  <script src="/admin/vendors/rater-js/rater1-js.js"></script>
-  <script src="/admin/vendors/rater-js/rater2-js.js"></script>
   <style>
     #map {
         height: 200px;
@@ -574,8 +573,7 @@
     $('#map').empty()
 
 $('#map').append(`
-<iframe width="auto" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=${latitudecord},%20${longitudecord}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>       
-              
+<iframe width="auto" height="250" id="gmap_canvas" src="https://maps.google.com/maps?q=${latitudecord},%20${longitudecord}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>                   
 `)
             }
     

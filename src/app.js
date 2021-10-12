@@ -7,6 +7,7 @@ const session = require("express-session")
 const flash = require("connect-flash")
 const passport = require("passport")
 const mongoose = require("mongoose");
+const moment = require("moment");
 const multer = require('multer')
 const { ObjectId } = require('bson')
 require("./config/auth")(passport)
@@ -45,6 +46,8 @@ app.use(flash());
 app.use(function(req, res, next){
   res.locals.messages = req.flash();
   res.locals.user = req.user || null;
+  res.locals.moment = moment;
+  moment.locale('pt-br');
   next();
 });
 
@@ -112,8 +115,14 @@ app.get('/detalhes-local/:idLocal', async (req, res) =>{
 
     res.render('institucional/detalheslocal',{
         info: info,
-        cidade: cidade
+        cidade: cidade,
+        avaliacao: JSON.stringify({
+            avaliacao: info.avaliacao,
+            avaliacoes: info.avaliacao.avaliacoes
+        }),
+ 
     })
+
 })
 
 //Rotas para login ======================================================================================================

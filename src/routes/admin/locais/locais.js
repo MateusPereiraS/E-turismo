@@ -36,28 +36,24 @@ router.get('/locais', async (req,res) => {
     })
 })
 
-router.post('/ajax-avaliacoes', async (req, res) => { // consulto os 
-    const avaliacoes = await Locais.aggregate([
-        { '$match': { '_id': ObjectId(req.body.idLocal) }},
-        {$unwind: '$avaliacao.avaliacoes.uuid'}, 
-
-        { 
-          
-            
-        }
-    ]) 
-    console.log(avaliacoes)
-
-})
-
-
-//Rotas de cadastro =======================================================================================================
-
 //Abre a página para adicionar o local
 router.get('/add-local', async (req,res) => {
 
     res.render('admin/locais/add-local')
 })
+
+
+router.get('/boasvindas', async (req,res) => {
+
+    const boasvindas = await Cidade.findOne().lean()
+    res.render('admin/locais/boasvindas', {
+        boasvindas: boasvindas
+    })
+})
+
+
+
+//Rotas de cadastro =======================================================================================================
 
 
 //Criação do local etapa 1
@@ -270,7 +266,7 @@ router.post('/update-localizacao-aval', (req, res) => {
     Locais.updateOne(
         {_id : req.body.idLocal,},
 
-        {$set : {"googleMaps":{'ativo' : req.body.ativarlocalizacao, "latitude" : req.body.latitude, "longitude": req.body.longitude},
+        {$set : {googleMaps : {'ativo' : req.body.ativarlocalizacao, 'latitude' : req.body.latitude, 'longitude': req.body.longitude} ,
           avaliacao:{'avaliacaoAtiva': req.body.ativaravaliacao}}}).then(()=>{
 
             req.flash("success", "Informações alteradas com sucesso")
@@ -289,7 +285,7 @@ router.post('/avaliacao', (req, res) => {
 
     Locais.updateOne(
         {_id: req.body.idLocal},    
-        {$push :{'avaliacao.avaliacoes': [{'nota': req.body.nota, 'uuid': req.body.uuid}]}}
+        {$push :{'avaliacao.avaliacoes': [{'nomelocal': req.body.nomeLocal, 'nota': req.body.nota, 'uuid': req.body.uuid, 'dataCriacao': new Date()}]}}
         
 
         ).then(async()=>{

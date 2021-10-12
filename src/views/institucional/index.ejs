@@ -1,53 +1,52 @@
 <%- include('../partials/institucional/navbar.ejs') %>
 <%- include('../partials/msg.ejs') %>
 
+
+<div class="container-fluid">
     <div class="row mb-4">
-         <h1 class="tm-text-primary">
+         <h1 class="tm-text-primary text-center">
             <%= cidade.titulo %>
          </h1>
     </div>
     <div class="row mb-4">
-        <h2 class="col-12 tm-text-primary">
+        <h4 class="tm-text-primary text-center" style="font-size: 20px;white-space:pre-line;line-height: 23px;">
            <%= cidade.mensagem %>
-        </h2>
+        </h4>
    </div>
 
-    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="img/hero.jpg">
+    <div class="tm-hero d-flex justify-content-center align-items-center">
         <form class="d-flex tm-search-form">
-            <input class="form-control tm-search-input" type="search" placeholder="Pesquise o nome do Local..." aria-label="Search">
+            <input class="form-control tm-search-input" type="search" placeholder="Nome do Local..." aria-label="Search">
             <button class="btn btn-outline-success tm-search-btn" type="submit">
                 <i class="fas fa-search"></i>
             </button>
         </form>
     </div>
 
-    <div class="container-fluid tm-mt-60">
+    
         <div class="row mb-4">
-            <h2 class="col-6 font-rb">
+            <h2 class="col-md font-rb">
                 Pontos turísticos
             </h2>
-            <div class="col-6 d-flex justify-content-end align-items-center">
-            </div>
         </div>
         <div class="row tm-mb-90 tm-gallery">
             <% locais.forEach(function(local) { %>
-        	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-                <% local.conteudoLocal.forEach(function(img) { %>
-                    <% if(img.imgcapa === true){ %>  
-                <figure class="effect-ming tm-video-item" class="img-fluid">            
+        	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5"> 
+                <figure class="effect-ming tm-video-item">
+                    <% local.conteudoLocal.forEach(function(img) { %>
+                        <% if(img.imgcapa === true){ %>             
                     <img src="/locais-img/<%= local._id %>/<%= img.img %>" style="height: 260px;width: 420px;" alt="Image" class="img-fluid">             
                     <figcaption class="d-flex align-items-center justify-content-center">
                         <h2><%= local.nome %></h2>
-                        <a href="/detalhes-local/<%= local._id %>"></a>     
-                         
-                    </figcaption>                    
+                        <a href="/detalhes-local/<%= local._id %>"></a>                      
+                    </figcaption>     
+                    <% } else { %> <% } %>
+                    <% }); %>                
                 </figure>
-                <% } else { %> <% } %>
-                <% }); %> 
+                <% if (local.avaliacao.avaliacaoAtiva === true) { %>
                 <div class="d-flex justify-content-between tm-text-gray">
                     <span class="col-5 tm-text-primary"><%= local.nome %></span>
-                    <% if (local.avaliacao.avaliacaoAtiva === true) { %>
-                    <div class="rate text-center condition-inative" style="margin-top: -20px;font-size:20px">
+                    <div class="rate condition-inative" style="margin-top: -20px;font-size:20px">
                         <input type="radio" id="star5" value="5" <% if(local.notaMedia == 5 || !local.notaMedia) { %> checked <% } else { %> <% } %>/>
                         <label for="star5" title="text">5 stars</label>
                         <input type="radio" id="star4"  value="4" <% if(local.notaMedia == 4 ) { %> checked <% } else { %> <% } %>/>
@@ -58,9 +57,9 @@
                         <label for="star2" title="text">2 stars</label>
                         <input type="radio" id="star1" value="1" <% if(local.notaMedia == 1 ) { %> checked <% } else { %> <% } %>/>
                         <label for="star1" title="text">1 star</label>
-                      </div>
-                      <% } else { %> <% } %>
+                      </div>                
                 </div>
+                <% } else { %> <% } %>
             </div>
             <% }); %> 
         </div> 
@@ -105,9 +104,5 @@
     </footer>
     
     <script src="/institucional/js/plugins.js"></script>
-    <script>
-        $(window).on("load", function() {
-            $('body').addClass('loaded');
-        });
-    </script>
+
 
