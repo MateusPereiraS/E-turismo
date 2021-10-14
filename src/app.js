@@ -95,7 +95,14 @@ const Cidade = mongoose.model("cidade")
 //Routes=================================================================================================================
 app.get('/', async (req,res) => {
 
-    let locais = await Locais.find({situacao:'liberado' , statusAtivo: true}).lean()
+    if (req.query.nome) {
+        filtroExist = true
+    } else {
+        filtroExist = false
+    }
+    req.query.nome ? nome = { nome: { $regex: req.query.nome.trim(), $options: "i" } } : nome = {}
+
+    let locais = await Locais.aggregate([{$match: {$and: [{situacao:'liberado'}, {statusAtivo: true}, nome]}}])   
     let cidade = await Cidade.findOne().lean()
     if(!cidade){
         new Cidade ({titulo: "", mensagem: "", texto: ""}).save()
@@ -104,7 +111,9 @@ app.get('/', async (req,res) => {
 
     res.render('institucional/index',{
         locais: locais,
-        cidade: cidade
+        cidade: cidade,
+        filtroExist: filtroExist,
+        pesquisa: req.query.nome
     })
 })
 

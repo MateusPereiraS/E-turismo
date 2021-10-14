@@ -16,10 +16,10 @@
 
     <div class="tm-hero d-flex justify-content-center align-items-center">
         <form class="d-flex tm-search-form">
-            <input class="form-control tm-search-input" type="search" placeholder="Nome do Local..." aria-label="Search">
-            <button class="btn btn-outline-success tm-search-btn" type="submit">
+            <input class="form-control tm-search-input" name="nome" value="<%- pesquisa %>" type="search" placeholder="Nome do Local..." aria-label="Search">
+            <button class="btn btn-outline-success tm-search-btn mr-3" type="submit">
                 <i class="fas fa-search"></i>
-            </button>
+            </button><% if (filtroExist) { %> <a href="/" class="btn text-danger">Limpar filtro <i class="fas fa-map-marker-alt"></i></a><% } else { %> <% } %>
         </form>
     </div>
 
