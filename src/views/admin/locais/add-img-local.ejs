@@ -63,13 +63,35 @@
                             </div>
                         </div>
                     </div>
+                   
                 </center>
                     <section class="section">
+                     
                         <div class="row">
                             <div class="col">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="form-group">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input"
+                                                style="width: 50px;height: 25px;" type="checkbox"
+                                                id="ativalAval" name="ativaravaliacao"  onchange="checkAvaliacao()">
+                                            <label class="form-check-label" for="ativalAval"
+                                                style="font-size: 20px;">&nbsp;&nbsp;Ativar avaliações <i class="fas fa-star text-warning"></i></label>
+                                        </div>
+                                                  
+                                        <script>  
+                                        function checkAvaliacao(){
+                                                if ($('#ativalAval').is(':checked')) {
+                        
+                                                    $("#ativalAval").val(true);
+                        
+                                                }else{
+                                                    $("#ativalAval").val(false);
+                                                }
+                        
+                                            }
+                                        </script> 
+                                        <div class="form-group mt-4">
                                             <label for="exampleFormControlTextarea1" class="form-label">Digite as inforações do local</label>
                                             <textarea class="form-control" id="exampleFormControlTextarea1" name="informacao"
                                                 rows="6"></textarea>

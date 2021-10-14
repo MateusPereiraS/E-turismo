@@ -415,7 +415,7 @@ figure.effect-ming:hover h2 {
 	transform: scale3d(1,1,1);
 }
 
-figure.effect-ming:hover figcaption { background-color: rgba(58,52,42,0); }
+figure.effect-ming:hover figcaption { background-color: rgba(170, 168, 164, 0.685); }
 figure.effect-ming:hover img { opacity: 0.4; }
 
 .tm-footer-links li {
@@ -434,7 +434,7 @@ figure.effect-ming:hover img { opacity: 0.4; }
 .tm-social-links li:last-child { margin-right: 0; }
 
 .tm-social-links li a  {
-    color: #999999;
+    color: #ddd6d6;
     width: 44px;
     height: 44px;
     display: flex;
@@ -455,7 +455,7 @@ figure.effect-ming:hover img { opacity: 0.4; }
 #tm-video-container {
     max-height: 400px;
     overflow: hidden;
-    background-color: #333;
+    background-color: rgb(218, 218, 218);
     margin-bottom: 90px;
     position: relative;
 }

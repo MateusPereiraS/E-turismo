@@ -6,6 +6,7 @@ const { ObjectId } = require('bson')
 const bcryptjs = require("bcryptjs")
 const multer = require('multer')
 var fs = require('fs')
+const { verifyUser } = require("../../../middlewares/verifyUser")
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -27,7 +28,7 @@ const Locais = mongoose.model("locais")
 require("../../../models/Cidade")
 const Cidade = mongoose.model("cidade")
 
-router.get('/locais', async (req,res) => {
+router.get('/locais', verifyUser, async (req,res) => {
 
     let locais = await Locais.find().lean()
 
@@ -37,13 +38,13 @@ router.get('/locais', async (req,res) => {
 })
 
 //Abre a página para adicionar o local
-router.get('/add-local', async (req,res) => {
+router.get('/add-local', verifyUser, async (req,res) => {
 
     res.render('admin/locais/add-local')
 })
 
 
-router.get('/boasvindas', async (req,res) => {
+router.get('/boasvindas', verifyUser, async (req,res) => {
 
     const boasvindas = await Cidade.findOne().lean()
     res.render('admin/locais/boasvindas', {
@@ -57,7 +58,7 @@ router.get('/boasvindas', async (req,res) => {
 
 
 //Criação do local etapa 1
-router.post('/add-local-post', async (req,res) => {
+router.post('/add-local-post', verifyUser, async (req,res) => {
 
     Locais.findOne({ nome: req.body.nome }).lean().then((local) => {
         if (local) {
@@ -109,7 +110,7 @@ router.post('/upload-img/:idLocal/:fileName', upload.single('img_local'), (req, 
     Locais.updateOne(
         {_id: req.params.idLocal},
         
-        {$set:{conteudoLocal: [{'img': req.params.fileName + '.' + extension  , 'imgcapa': 'true'}],'informacao': req.body.informacao, 'situacao': 'liberado'}}
+        {$set:{conteudoLocal: [{'img': req.params.fileName + '.' + extension  , 'imgcapa': 'true'}],'informacao': req.body.informacao, avaliacao:{'avaliacaoAtiva': req.body.ativaravaliacao}, 'situacao': 'liberado'}}
 
         ).then(()=>{
 
@@ -148,7 +149,7 @@ router.post('/add-img/:idLocal/:fileName', upload.single('img_local'), (req, res
 })
 
 //Concluir cadastro de local pendente
-router.post('/concluir-cadastro', async (req, res) => {
+router.post('/concluir-cadastro', verifyUser, async (req, res) => {
 
     let local = await Locais.findById({_id: req.body.idLocal}).lean()
         res.render('admin/locais/add-img-local',{
@@ -161,7 +162,7 @@ router.post('/concluir-cadastro', async (req, res) => {
 //Rotas de edição ========================================================================================================
 
 
-router.get('/edit-local/:idLocal', async (req,res) => {
+router.get('/edit-local/:idLocal', verifyUser, async (req,res) => {
 
     const { idLocal } = req.params
 
@@ -318,8 +319,6 @@ router.post('/avaliacao', (req, res) => {
             Locais.updateOne(
                 {_id: req.body.idLocal},    
                 {$set :{'notaMedia': notaMedia }}).then(()=>{
-
-            req.flash("success", "Avaliação enviada")
             res.redirect("back")
 
         }).catch((err) => {

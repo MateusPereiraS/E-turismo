@@ -3,10 +3,12 @@ const router = express.Router()
 const mongoose = require("mongoose")
 const { ObjectId } = require('bson')
 const bcryptjs = require("bcryptjs")
+const { verifyUser } = require("../../../middlewares/verifyUser")
 
 require("../../../models/Locais")
 const Locais = mongoose.model("locais")
-router.get('/dashboard', async (req,res) => {
+
+router.get('/dashboard', verifyUser, async (req,res) => {
 
     let ativos = await Locais.countDocuments({
         $and: [

@@ -128,7 +128,13 @@ app.get('/detalhes-local/:idLocal', async (req, res) =>{
 //Rotas para login ======================================================================================================
 
 app.get('/admin', function (req, res){
-    res.render('admin/acessos/login')
+    
+     if(req.user){
+         res.redirect('/admin/dashboard')
+    }else{
+        res.render('admin/acessos/login')
+    }
+    
 })
 
 const adminAcessos = require("./routes/admin/acessos/acessos")

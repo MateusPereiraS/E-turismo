@@ -43,24 +43,24 @@
                     <% } else { %> <% } %>
                     <% }); %>                
                 </figure>
-                <% if (local.avaliacao.avaliacaoAtiva === true) { %>
-                <div class="d-flex justify-content-between tm-text-gray">
+                <div class="d-flex justify-content-between tm-text-gray" style="margin-top:-10px">
                     <span class="col-5 tm-text-primary"><%= local.nome %></span>
-                    <div class="rate condition-inative" style="margin-top: -20px;font-size:20px">
-                        <input type="radio" id="star5" value="5" <% if(local.notaMedia == 5 || !local.notaMedia) { %> checked <% } else { %> <% } %>/>
-                        <label for="star5" title="text">5 stars</label>
-                        <input type="radio" id="star4"  value="4" <% if(local.notaMedia == 4 ) { %> checked <% } else { %> <% } %>/>
-                        <label for="star4" title="text">4 stars</label>
-                        <input type="radio" id="star3" value="3" <% if(local.notaMedia == 3 ) { %> checked <% } else { %> <% } %>/>
-                        <label for="star3" title="text">3 stars</label>
-                        <input type="radio" id="star2"  value="2" <% if(local.notaMedia  == 2 ) { %> checked <% } else { %> <% } %>/>
-                        <label for="star2" title="text">2 stars</label>
-                        <input type="radio" id="star1" value="1" <% if(local.notaMedia == 1 ) { %> checked <% } else { %> <% } %>/>
-                        <label for="star1" title="text">1 star</label>
-                      </div>                
-                </div>
-                <% } else { %> <% } %>
-            </div>
+                    <% if (local.avaliacao.avaliacaoAtiva === true) { %>
+                        <div class="rate condition-inative" style="margin-top: -10px;">
+                            <input type="radio" id="star5" value="5" <% if(local.notaMedia == 5 || !local.notaMedia) { %> checked <% } else { %> <% } %>/>
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" id="star4"  value="4" <% if(local.notaMedia == 4 ) { %> checked <% } else { %> <% } %>/>
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" value="3" <% if(local.notaMedia == 3 ) { %> checked <% } else { %> <% } %>/>
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2"  value="2" <% if(local.notaMedia  == 2 ) { %> checked <% } else { %> <% } %>/>
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" value="1" <% if(local.notaMedia == 1 ) { %> checked <% } else { %> <% } %>/>
+                            <label for="star1" title="text">1 star</label>               
+                    </div>
+                    <% } else { %> <% } %>
+                </div>       
+            </div>        
             <% }); %> 
         </div> 
     </div> 

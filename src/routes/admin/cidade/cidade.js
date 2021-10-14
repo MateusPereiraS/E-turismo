@@ -6,6 +6,8 @@ const { ObjectId } = require('bson')
 const bcryptjs = require("bcryptjs")
 const multer = require('multer')
 var fs = require('fs')
+const { verifyUser } = require("../../../middlewares/verifyUser")
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -27,7 +29,7 @@ const Cidade = mongoose.model("cidade")
 
 
 //Abre a página de história
-router.get('/historia', async (req,res) => {
+router.get('/historia', verifyUser, async (req,res) => {
 
     const historia =  await Cidade.findOne().lean()
 
@@ -46,7 +48,7 @@ router.get('/cidade-historia', async (req,res) => {
 })
 
 
-router.get('/imagens', async (req,res) => {
+router.get('/imagens', verifyUser, async (req,res) => {
 
     const imagens = await Cidade.findOne().lean()
     res.render('admin/cidade/imagens', {

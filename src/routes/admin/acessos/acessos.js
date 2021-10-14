@@ -7,6 +7,7 @@ const mailer = require('../../../../node_modules/mailer')
 const crypto = require('crypto')
 require("../../../models/Usuario")
 const Usuario = mongoose.model("usuarios")
+const { verifyUser } = require("../../../middlewares/verifyUser")
 
 router.post("/login", (req, res, next) => {
     Usuario.findOne({ email: req.body.email }).lean().then((usuario) => {
@@ -22,7 +23,7 @@ router.post("/login", (req, res, next) => {
 
 router.get("/logout", (req, res) => {
     req.logout()
-    req.flash("success_msg", "Deslogado com sucesso!")
+    req.flash("success", "Deslogado com sucesso!")
     res.redirect("/admin")
 })
 
@@ -106,7 +107,7 @@ router.post('/reset-senha', async (req, res) => {
     }
 })
 
-router.get("/perfil", (req, res) => {
+router.get("/perfil", verifyUser, (req, res) => {
   
     res.render('admin/acessos/perfil')
 })

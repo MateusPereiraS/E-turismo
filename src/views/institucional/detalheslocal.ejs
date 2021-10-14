@@ -40,16 +40,16 @@
                                         </div>
                                      
                                         <% if (info.googleMaps.ativo == true) { %>                                         
-                                            <input type="text" id="latitude" value="<%= info.googleMaps.latitude %>" hidden readonly>
-                                            <input type="text" id="longitude" value="<%= info.googleMaps.longitude %>" hidden readonly>
-                                        <div class="col-md-4 ">
-                                            <h5 class="tm-text-primary"><i class="fas fa-map-marked-alt"></i> Mapa</h5>
-                                            <div class="form-group">
-                                                <div id="map" class="img-fluid mt-3"></div>
+                                            <div class="col-md-4 ">
+                                                <h5 class="tm-text-primary"><i class="fas fa-map-marked-alt"></i> Mapa</h5>
+                                                <div class="form-group">
+                                                    <div id="map" class="img-fluid mt-3">
+                                                        <iframe width="auto" height="300" id="gmap_canvas" src="https://maps.google.com/maps?q=<%- info.googleMaps.latitude %>,%20<%- info.googleMaps.longitude %>&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <% } else { %>
-                                            <% } %>
+                                            <% } else { %>
+                                                <% } %>
                                  </div>                                                                                                           
                             </div>
                         </div>
@@ -67,39 +67,40 @@
     </div>
 </section>
 </div>  
+   <% if (info.avaliacao.avaliacaoAtiva === true) { %>
         <div id="ratingStatus">
             <form action="/locais/avaliacao" method="POST">
-    <% if (info.avaliacao.avaliacaoAtiva === true) { %>
-        <h5 style="text-align:center" class="mt-5">Dê uma nota para o local:</h5>
-        <div class="rate-big mb-5">
-            <input type="radio" id="star5" onchange="ratevalue(this.value)" name="rate" value="5"/>
-            <label for="star5" title="text">5 stars</label>
-            <input type="radio" id="star4" onchange="ratevalue(this.value)" name="rate" value="4" />
-            <label for="star4" title="text">4 stars</label>
-            <input type="radio" id="star3" onchange="ratevalue(this.value)" name="rate" value="3" />
-            <label for="star3" title="text">3 stars</label>
-            <input type="radio" id="star2" onchange="ratevalue(this.value)" name="rate" value="2" />
-            <label for="star2" title="text">2 stars</label>
-            <input type="radio" id="star1" onchange="ratevalue(this.value)" name="rate" value="1" />
-            <label for="star1" title="text">1 star</label>
-          </div>
-          <input type="text" name="idLocal" value="<%= info._id %>" hidden readonly>
-          <input type="text" name="nomeLocal" value="<%= info.nome %>" hidden readonly>
-          <input type="text" id="nota" name="nota" hidden readonly>
-          <input type="text" id="uuid4Visitante-rating" name="uuid" hidden readonly>
-        
-          <center>
-            <button class="btn btn-primary mb-5" style="height: 50px;">Avaliar</button>
-          </center>
-          <% } else { %> <% } %>
-    </form>
+     
+                <h5 style="text-align:center" class="mt-5">Dê uma nota para o local:</h5>
+                <div class="rate-big mb-5">
+                    <input type="radio" id="star5" onchange="ratevalue(this.value)" name="rate" value="5"/>
+                    <label for="star5" title="text">5 stars</label>
+                    <input type="radio" id="star4" onchange="ratevalue(this.value)" name="rate" value="4" />
+                    <label for="star4" title="text">4 stars</label>
+                    <input type="radio" id="star3" onchange="ratevalue(this.value)" name="rate" value="3" />
+                    <label for="star3" title="text">3 stars</label>
+                    <input type="radio" id="star2" onchange="ratevalue(this.value)" name="rate" value="2" />
+                    <label for="star2" title="text">2 stars</label>
+                    <input type="radio" id="star1" onchange="ratevalue(this.value)" name="rate" value="1" />
+                    <label for="star1" title="text">1 star</label>
+                  </div>
+                  <input type="text" name="idLocal" value="<%= info._id %>" hidden readonly>
+                  <input type="text" name="nomeLocal" value="<%= info.nome %>" hidden readonly>
+                  <input type="text" id="nota" name="nota" hidden readonly>
+                  <input type="text" id="uuid4Visitante-rating" name="uuid" hidden readonly>
+                
+                  <center>
+                    <button class="btn btn-primary mb-5" style="height: 50px;">Avaliar</button>
+                  </center>
+                 
+                </form>
         </div>
         <script>
             function ratevalue(rating){
               $('#nota').val(rating)
             }
         </script>
-
+ <% } else { %> <% } %>
 
 
  <script>
@@ -153,51 +154,42 @@
 }
 </style>
 <script>
-     window.onload = function () {
-         
-    let avaliacao = <%- avaliacao %>
+    function uuidv4() { // gerador de uuidv4
+     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+     );
+ }
 
-let uuidDisponivel = avaliacao.avaliacoes.map(v => v.uuid) 
+ if (!localStorage.getItem('uuid4Visitante')) { 
+     localStorage.setItem('uuid4Visitante', Date.now() + "-" + uuidv4() + uuidv4() + uuidv4());
+     $("#uuid4Visitante-rating").val(localStorage.getItem('uuid4Visitante'))
+          
+ }
 
-let uuid = $("#uuid4Visitante-rating").val()
-    let validate = uuidDisponivel.includes(uuid)
+ $("#uuid4Visitante-rating").val(localStorage.getItem('uuid4Visitante'))
 
-    
-    if(validate){
-        $('#ratingStatus').empty()
-        $('#ratingStatus').append(`
-        <h4 class="text-center font-rb mt-5">Obrigado por sua avaliação! </h4>
-        <h1 class="text-center text-warning mb-5"><i class="fas fa-laugh-beam"></i></h1>
-        `)
-    }
 
-       var latitudecord = document.querySelector('#latitude').value
-       var longitudecord = document.querySelector('#longitude').value
+
+</script>
+
+<script>
+   window.addEventListener('load', function() {
+           let avaliacao = <%- avaliacao %>
      
-       $('#map').append(`
-   
-                <iframe width="auto" height="300" id="gmap_canvas" src="https://maps.google.com/maps?q=${latitudecord},%20${longitudecord}&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>       
-             
-`)
-
-       }
-
-   </script>
-
-   <script>
-       function uuidv4() { // gerador de uuidv4
-        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-        );
-    }
-
-    if (!localStorage.getItem('uuid4Visitante')) { 
-        localStorage.setItem('uuid4Visitante', Date.now() + "-" + uuidv4() + uuidv4() + uuidv4());
-        $("#uuid4Visitante-rating").val(localStorage.getItem('uuid4Visitante'))
-    }
-
-    $("#uuid4Visitante-rating").val(localStorage.getItem('uuid4Visitante'))
+     let uuidDisponivel = avaliacao.avaliacoes.map(v => v.uuid) 
+     
+     let uuid = localStorage.getItem('uuid4Visitante')
+         let validate = uuidDisponivel.includes(uuid)
+     
+         
+         if(validate){
+             $('#ratingStatus').empty()
+             $('#ratingStatus').append(`
+             <h4 class="text-center font-rb mt-5">Obrigado por sua avaliação! </h4>
+             <h1 class="text-center text-warning mb-5"><i class="fas fa-laugh-beam"></i></h1>
+             `)
+         }
+    })
+</script>
 
 
-
-   </script>
