@@ -7,7 +7,7 @@
 
     <div class="container-fluid tm-container-content tm-mt-60" >
         <div class="row mb-4">
-            <h2 class="col-md tm-text-primary font-rb"><%= info.nome %></h2>
+            <h2 class="col-md tm-text-primary font-rb ml-5"><%= info.nome %></h2>
         </div>
         <section id="multiple-column-form">
             <div class="row match-height">
@@ -68,10 +68,11 @@
 </section>
 </div>  
    <% if (info.avaliacao.avaliacaoAtiva === true) { %>
+    <center>
         <div id="ratingStatus">
             <form action="/locais/avaliacao" method="POST">
      
-                <h5 style="text-align:center" class="mt-5">Dê uma nota para o local:</h5>
+                <h5 class="mt-5">Dê uma nota para o local:</h5>
                 <div class="rate-big mb-5">
                     <input type="radio" id="star5" onchange="ratevalue(this.value)" name="rate" value="5"/>
                     <label for="star5" title="text">5 stars</label>
@@ -89,12 +90,13 @@
                   <input type="text" id="nota" name="nota" hidden readonly>
                   <input type="text" id="uuid4Visitante-rating" name="uuid" hidden readonly>
                 
-                  <center>
-                    <button class="btn btn-primary mb-5" style="height: 50px;">Avaliar</button>
-                  </center>
+                  <br>
+                    <button class="btn btn-primary mb-5" style="height: 50px;">Avaliar ★</button>
+                 
                  
                 </form>
         </div>
+        </center>
         <script>
             function ratevalue(rating){
               $('#nota').val(rating)
