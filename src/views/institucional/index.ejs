@@ -29,13 +29,14 @@
                 Pontos turísticos
             </h2>
         </div>
+        <section class="container-fluid">
         <div class="row tm-mb-90 tm-gallery">
             <% locais.forEach(function(local) { %>
-        	<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5"> 
+        	<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 mb-5"> 
                 <figure class="effect-ming tm-video-item">
                     <% local.conteudoLocal.forEach(function(img) { %>
                         <% if(img.imgcapa === true){ %>             
-                    <img src="/locais-img/<%= local._id %>/<%= img.img %>" style="height: 260px;width: 420px;" alt="Image" class="img-fluid">             
+                    <img src="/locais-img/<%= local._id %>/<%= img.img %>" style="height: 360px;width: 620px;" alt="Image" class="img-fluid">             
                     <figcaption class="d-flex align-items-center justify-content-center">
                         <h2><%= local.nome %></h2>
                         <a href="/detalhes-local/<%= local._id %>"></a>                      
@@ -63,6 +64,7 @@
             </div>        
             <% }); %> 
         </div> 
+        
     </div> 
 
     <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
