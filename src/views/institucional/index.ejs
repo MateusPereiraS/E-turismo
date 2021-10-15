@@ -2,7 +2,8 @@
 <%- include('../partials/msg.ejs') %>
 
 
-<div class="container-fluid">
+<div class="container-fluid tm-container-content">
+    <section id="multiple-column-form">
     <div class="row mb-4">
          <h1 class="tm-text-primary text-center">
             <%= cidade.titulo %>
@@ -24,18 +25,18 @@
     </div>
 
     
-        <div class="row mb-4">
+        <div class="row mb-4 ml-4">
             <h2 class="col-md font-rb">
                 Pontos turísticos
             </h2>
         </div>
-        <div class="row tm-mb-90 tm-gallery">
+        <div class="row tm-mb-90 tm-gallery ml-4">
             <% locais.forEach(function(local) { %>
-        	<div class="col-xl col-lg-5 col-md-6 col-sm-6 col-12 mb-5"> 
+        	<div  style="height: 260px;width: 400px;" class="mr-2 mb-3 img-fluid" > 
                 <figure class="effect-ming tm-video-item">
                     <% local.conteudoLocal.forEach(function(img) { %>
                         <% if(img.imgcapa === true){ %>             
-                    <img src="/locais-img/<%= local._id %>/<%= img.img %>" style="height: 260px;width: 620px;" alt="Image" class="img-fluid">             
+                    <img src="/locais-img/<%= local._id %>/<%= img.img %>" style="height: 260px;width: 400px;" class="img-fluid" >             
                     <figcaption class="d-flex align-items-center justify-content-center">
                         <h2><%= local.nome %></h2>
                         <a href="/detalhes-local/<%= local._id %>"></a>                      
@@ -63,6 +64,7 @@
             </div>        
             <% }); %> 
         </div> 
+        </section>
     </div> 
 
     <footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
