@@ -27,7 +27,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="stats-icon bg-success">
-                                                    <i class="iconly-boldProfile"></i>
+                                                    <i class="fas fa-store"></i>
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
@@ -44,7 +44,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="stats-icon bg-danger">
-                                                    <i class="iconly-boldAdd-User"></i>
+                                                    <i class="fas fa-store-slash"></i>
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
@@ -97,7 +97,7 @@
                                                                 <div class="avatar avatar-md">
                                                                     <i class="fas fa-thumbtack"></i>
                                                                 </div>
-                                                                <p class="font-bold ms-3 mb-0"><%- mais_aval._id %></p>
+                                                                <p class="font-bold ms-3 mb-0"><%- mais_aval.nome %></p>
                                                             </div>
                                                         </td>
                                                         <td class="col-auto">
@@ -135,14 +135,14 @@
                                                                 <div class="avatar avatar-md">
                                                                     <i class="fas fa-thumbtack"></i>
                                                                 </div>
-                                                                <p class="font-bold ms-3 mb-0"><%- aval._id.nomelocal %></p>
+                                                                <p class="font-bold ms-3 mb-0"><%- aval.nome %></p>
                                                             </div>
                                                         </td>
                                                         <td class="col-auto">
                                                             <p class=" mb-0"><%- aval._id.nota %></p>
                                                         </td>
                                                         <td class="col-auto">
-                                                            <p class=" mb-0"><%=  moment(new Date(aval._id.dataCriacao)).format('HH:mm:ss - MM/DD/YYYY') %></p>
+                                                            <p class=" mb-0"><%=  moment(new Date(aval._id.dataCriacao)).format('HH:mm:ss - DD/MM/YYYY') %></p>
                                                         </td>
                                                     </tr>
                                                     <% }); %>   

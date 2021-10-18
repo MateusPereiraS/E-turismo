@@ -45,9 +45,6 @@
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
-                                        <th>Endereço</th>
-                                        <th>Número</th>
-                                        <th>Bairro</th>
                                         <th>Status</th>
                                         <th>Editar</th>
                                     </tr>
@@ -56,9 +53,6 @@
                                     <% locais.forEach(function(local) { %>                          
                                     <tr>
                                         <td><%= local.nome %></td>
-                                        <td><%= local.endereco %></td>
-                                        <td><%= local.numero %></td>
-                                        <td><%= local.bairro %></td>
                                         <% if (local.situacao == 'pendente') { %>
                                             <td>
                                                 <span class="badge bg-warning">pendente</span>

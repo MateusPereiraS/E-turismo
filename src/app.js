@@ -134,6 +134,7 @@ app.get('/detalhes-local/:idLocal', async (req, res) =>{
 
 })
 
+
 //Rotas para login ======================================================================================================
 
 app.get('/admin', function (req, res){

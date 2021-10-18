@@ -102,9 +102,10 @@
                         </div>
                     </section>
                     <center>
-                    <button type="submit"
-                    class="btn btn-primary me-3 mb-1" style="width: 300px;">Cadastrar</button>
-                </center>
+                            <button type="submit" class="btn btn-primary  mb-1 mt-3" style="width: 300px;height:50px;background: #435ebe;">Cadastrar</button>&nbsp;&nbsp;&nbsp;
+                         <button type="button" class="btn btn-primary mb-1 mt-3" style="width: 300px;height:50px;background: rgb(255, 255, 255);border: none;color: red;box-shadow: 0 0 1em rgba(0, 0, 0, 0.144);"
+                                data-bs-toggle="modal" data-bs-target="#danger" type="button">X Excluir</button>  
+                    </center>
                 </form>
 
             </div>
@@ -112,5 +113,45 @@
         </div>
     </div>
 
-
+      <!-- Modal de exclusão --> 
+      <div class="modal fade text-left" id="danger" tabindex="-1"
+      role="dialog" aria-labelledby="myModalLabel120"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+          role="document">
+          <div class="modal-content">
+              <div class="modal-header bg-danger">
+                  <h5 class="modal-title white" id="myModalLabel120">
+                      Exclusão de local
+                  </h5>
+                  <button type="button" class="close"
+                      data-bs-dismiss="modal" aria-label="Close">
+                      <i data-feather="x"></i>
+                  </button>
+              </div>
+              <div class="modal-body" style="color: black;">
+                  
+                Tem certeza que deseja excluir?
+                <br><br>
+                Todas as informações serão excluídas permanentemente e não será possível recuperar.
+              </div>
+              <div class="modal-footer">
+                <form action="/locais/delete-local" method="POST">
+                    <input type="text" name="idLocal" value="<%= local._id %>" hidden readonly>
+                  <button type="submit" class="btn btn-danger ml-1">
+                      <i class="bx bx-check d-block d-sm-none"></i>
+                      <span class="d-none d-sm-block">Ok, estou ciente.</span>
+                  </button>
+                  </form>
+                  <button type="button"
+                      class="btn btn-light-secondary"
+                      data-bs-dismiss="modal">
+                      <i class="bx bx-x d-block d-sm-none"></i>
+                      <span class="d-none d-sm-block">Cancelar</span>
+                  </button>     
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 

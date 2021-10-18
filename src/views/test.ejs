@@ -1,31 +1,60 @@
-
-<head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lg-transitions.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css"/>
-
-</head>
-
-<div id="lightgallery">
-
-
-      
-    <a href="/locais-img/614b5664a58963e285a2c519/52633909_293734914651739_8264299066494550016_n.jpg">
-      <img src="/locais-img/614b5664a58963e285a2c519/52633909_293734914651739_8264299066494550016_n.jpg" />
-  </a>
-                                      
-    
-
-</div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
- 
-<!-- lightgallery plugins -->
-
-
-
- <script>
-    lightGallery(document.getElementById('lightgallery'), {
-      
-    });
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script type="text/javascript">
+    function ConverToImage(btnExport) {
+        document.getElementById('<%=lblSelectedDivClass.ClientID%>').style.display = "block";
+        var divId = document.getElementById('<%=lblSelectedDivClass.ClientID%>').innerText;
+        if (divId == "") {
+            alert("Please Select Template First");
+            return false;
+        }
+        document.getElementById('<%=lblSelectedDivClass.ClientID%>').style.display = "none";
+        html2canvas($("." + divId), {
+            onrendered: function (canvas) {
+                var imgsrc = canvas.toDataURL();
+                $('#hdnImage').attr('value', imgsrc);
+                __doPostBack(btnExport.name, "");
+            }
+        });
+        return false;
+    }
 </script>
+<div class="dvTable" style="width: 340px; background-color: White; padding: 5px">
+    <u>Customer Records</u>
+    <br />
+    <br />
+    <table cellspacing="0" rules="all" border="1" style="border-collapse: collapse;">
+        <tr>
+            <th scope="col" style="width: 90px;">Customer Id
+            </th>
+            <th scope="col" style="width: 120px;">Name
+            </th>
+            <th scope="col" style="width: 120px;">Country
+            </th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>John Hammond</td>
+            <td>United States</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Mudassar Khan</td>
+            <td>India</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Suzanne Mathews</td>
+            <td>France</td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Robert Schidner</td>
+            <td>Russia</td>
+        </tr>
+    </table>
+</div>
+<br />
+<asp:Button ID="btnDownload" runat="server" Text="Download" OnClick="btnDownload_Click" OnClientClick="return ConverToImage(this)" UseSubmitBehavior="false" />
+<asp:HiddenField ID="hdnImage" ClientIDMode="Static" runat="server" />
+<asp:Label ID="lblSelectedDivClass" Style="display: none;" runat="server" Text="dvTable"></asp:Label>

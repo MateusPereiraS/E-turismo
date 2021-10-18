@@ -32,11 +32,11 @@
         </div>
         <div class="row tm-mb-90 tm-gallery ml-1 mr-1">
             <% locais.forEach(function(local) { %>
-        	<div style="height: 260px;width: 400px;margin-top: 90px;" class="mr-2 mb-3 img-fluid" > 
+        	<div style="height: 260px;width: 450px;margin-top: 90px;" class="mr-2 mb-3 img-fluid" > 
                 <figure class="effect-ming tm-video-item ">
                     <% local.conteudoLocal.forEach(function(img) { %>
                         <% if(img.imgcapa === true){ %>             
-                    <img src="/locais-img/<%= local._id %>/<%= img.img %>" style="height: 260px;width: 400px;" class="img-fluid" >             
+                    <img src="/locais-img/<%= local._id %>/<%= img.img %>" style="height: 260px;width: 460px;" class="img-fluid" >             
                     <figcaption class="d-flex align-items-center justify-content-center mb-4">
                         <h2><%= local.nome %></h2>
                         <a href="/detalhes-local/<%= local._id %>"></a>                      

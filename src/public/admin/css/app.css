@@ -11,7 +11,7 @@
 
 .image-area {
     max-width: 400px;
-    max-height: 400px;
+    max-height: auto;
     border: 2px dashed rgba(40, 97, 75, 0.7);
     padding: 1rem;
     position: relative;

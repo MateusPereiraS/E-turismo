@@ -283,10 +283,13 @@ router.post('/update-localizacao-aval', (req, res) => {
 
 
 router.post('/avaliacao', (req, res) => {
+let data = new Date();
+let data2 = new Date(data.valueOf() - data.getTimezoneOffset() * 60000);
+var dataBase = data2.toISOString().replace(/\.\d{3}Z$/, '');
 
     Locais.updateOne(
         {_id: req.body.idLocal},    
-        {$push :{'avaliacao.avaliacoes': [{'nomelocal': req.body.nomeLocal, 'nota': req.body.nota, 'uuid': req.body.uuid, 'dataCriacao': new Date()}]}}
+        {$push :{'avaliacao.avaliacoes': [{'nomelocal': req.body.nomeLocal, 'nota': req.body.nota, 'uuid': req.body.uuid, 'dataCriacao': new Date(dataBase)}]}}
         
 
         ).then(async()=>{

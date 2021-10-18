@@ -1,8 +1,12 @@
-
+<link rel="stylesheet" href="/institucional/css/templatemo-style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script>
     window.onload = function() {
         const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');       
         $('#form-include-img').attr('action', '/locais/add-img/<%= locais._id %>/'+genRanHex(12));
+
+
 
           $('#locais').addClass("active");
           $('#locais2').addClass("active");
@@ -11,8 +15,6 @@
           
       }
   </script>
-
-    <link rel="stylesheet" href="/institucional/css/templatemo-style.css">
 
 
     <%- include('../../partials/admin/menu.ejs') %>
@@ -30,7 +32,7 @@
     <div class="container-fluid tm-container-content tm-mt-60">
        
         <div class="row mb-4">
-            <h2 class="col-12 tm-text-primary">Editar publicação <%= locais.avaliacao.notaMedia %></h2>
+            <h2 class="col-12 tm-text-primary">Editar publicação / <%= locais.nome %></h2>
         </div>
         <div class="row tm-mb-90"> 
             <% if (locais.avaliacao.avaliacaoAtiva === true) { %>
@@ -126,10 +128,15 @@
                                 $('#update-status-local').submit()
                             }
                         </script>
-                        <div> 
+                         <div class="row">
+                        <div class="col-md-6 mb-5"> 
                             <button style="background: none;border: none;color: red;"  data-bs-toggle="modal" data-bs-target="#danger" type="button" >X Excluir Local</button>
-                        
-                        </div>        
+                        </div>
+                        <div class="col-md-5 mb-2" style="margin-top:-120px;">
+                        <canvas  id="qr-code"></canvas> 
+                        <button style="background: none;border: none;color: rgb(99, 99, 138);" onClick="downloadQr()">&nbsp;&nbsp;Baixar <i class="fas fa-download"></i></button>
+                    </div>
+                    </div>
                         </div>
                            
             </div>
@@ -579,3 +586,31 @@ $('#map').append(`
     
 </script>
 
+<script>
+            var qr;
+			(function() {
+                    qr = new QRious({
+                    element: document.getElementById('qr-code'),
+                    size: 250,
+                    value: 'https://testeeturismo.herokuapp.com/detalhes-local/<%= locais._id %>'
+                });
+            })();
+
+  
+
+</script>
+
+<script>
+    function downloadQr(){
+        html2canvas($('#qr-code'), 
+    {
+      onrendered: function (canvas) {
+        var a = document.createElement('a');
+        // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+        a.href = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+        a.download = 'qrCode.png';
+        a.click();
+      }
+    });
+  }
+</script>
