@@ -35,7 +35,6 @@ router.get('/dashboard', verifyUser,  async (req,res) => {
             {
                 $group:{
                     '_id': '$avaliacao.avaliacoes.nomelocal', 
-                    "nome": { "$first": "$nome" },
                     count: { $sum: 1 }
                 },
             }, 
