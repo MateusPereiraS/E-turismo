@@ -33,8 +33,9 @@ router.get('/dashboard', verifyUser,  async (req,res) => {
             {$unwind: '$avaliacao.avaliacoes'},
             
             {
-                $group:{
-                    '_id': '$avaliacao.avaliacoes.nomelocal', 
+                '$group':{
+                    '_id': '$avaliacao.avaliacoes.idLocal', 
+                    "nome": { "$first": "$nome" },
                     count: { $sum: 1 }
                 },
             }, 
@@ -62,7 +63,7 @@ router.get('/dashboard', verifyUser,  async (req,res) => {
       
     ])
 
-    console.log(ultimos_comentarios)
+    console.log(mais_avaliados)
 
     res.render('admin/dashboard/dashboard', {
         ativos: ativos,

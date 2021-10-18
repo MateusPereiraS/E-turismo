@@ -38,6 +38,7 @@ const Locais = new Schema({
 
     avaliacao:{
         avaliacoes:[{
+            idLocal: String,
             uuid: String,
             nota: Number,
             dataCriacao: Date,

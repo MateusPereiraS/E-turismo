@@ -72,8 +72,8 @@
         <div id="ratingStatus">
             <form action="/locais/avaliacao" method="POST">
      
-                <h5 class="mt-5">Dê uma nota para o local:</h5>
-                <div class="rate-big mb-5">
+                <h5 class="mt-4">Dê uma nota para o local:</h5>
+                <div class="rate-big mb-4">
                     <input type="radio" id="star5" onchange="ratevalue(this.value)" name="rate" value="5"/>
                     <label for="star5" title="text">5 stars</label>
                     <input type="radio" id="star4" onchange="ratevalue(this.value)" name="rate" value="4" />
@@ -86,12 +86,11 @@
                     <label for="star1" title="text">1 star</label>
                   </div>
                   <input type="text" name="idLocal" value="<%= info._id %>" hidden readonly>
-                  <input type="text" name="nomeLocal" value="<%= info.nome %>" hidden readonly>
                   <input type="text" id="nota" name="nota" hidden readonly>
                   <input type="text" id="uuid4Visitante-rating" name="uuid" hidden readonly>
                 
                   <br>
-                    <button class="btn btn-primary mb-5" style="height: 50px;">Avaliar ★</button>
+                    <button class="btn btn-primary" style="height: 50px;">Avaliar ★</button>
                  
                  
                 </form>
@@ -188,7 +187,7 @@
              $('#ratingStatus').empty()
              $('#ratingStatus').append(`
              <h4 class="text-center font-rb mt-5">Obrigado por sua avaliação! </h4>
-             <h1 class="text-center text-warning mb-5"><i class="fas fa-laugh-beam"></i></h1>
+             <h1 class="text-center text-warning"><i class="fas fa-laugh-beam"></i></h1>
              `)
          }
     })
